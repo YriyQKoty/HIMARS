@@ -7,7 +7,7 @@ namespace DefaultNamespace.LauncherCore
     public class LauncherHorizontalRotator : MonoBehaviour, IRotatable
     {
         [SerializeField] private Vector2 yAngleRange = new Vector2(-140, 140);
-        [SerializeField] private float rotTime = 2f;
+        [SerializeField] private float rotTime;
 
         public Vector2 YAngleRange => yAngleRange;
 

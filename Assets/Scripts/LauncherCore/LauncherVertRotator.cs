@@ -6,7 +6,7 @@ using UnityEngine;
 public class LauncherVertRotator : MonoBehaviour, IRotatable
 {
     [SerializeField] private Vector2 xAngleRange = new Vector2(-2, 60);
-    [SerializeField] private float rotTime = 5f;
+    [SerializeField] private float rotTime;
 
     public Vector2 XAngleRange => xAngleRange;
 

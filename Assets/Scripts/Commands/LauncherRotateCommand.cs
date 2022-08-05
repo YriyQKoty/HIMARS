@@ -21,29 +21,14 @@ namespace DefaultNamespace.Commands
         
         public void Execute()
         {
-            if (_data.Order == LauncherController.ExecutionOrder.HorizontalFirst)
+            _vertRotator.Rotate(_data.VerticalAngles).OnComplete(() =>
             {
-                _horizontalRotator.Rotate(_data.HorizontalAngles)
-                    .OnComplete(() => _vertRotator.Rotate(_data.VerticalAngles)
-                        .OnComplete(() =>
-                        {
-                        _horizontalRotator.RotationInAction = false;
-                        _vertRotator.RotationInAction = false; 
-                        })
-                    );
-            }
-            else
+                _vertRotator.RotationInAction = false; 
+            });
+            _horizontalRotator.Rotate(_data.HorizontalAngles).OnComplete(() =>
             {
-                _vertRotator.Rotate(_data.VerticalAngles)
-                    .OnComplete(() => _horizontalRotator.Rotate(_data.HorizontalAngles)    
-                        .OnComplete(() =>
-                        {
-                        _horizontalRotator.RotationInAction = false;
-                        _vertRotator.RotationInAction = false; 
-                        })
-                    );
-            }
-           
+                _horizontalRotator.RotationInAction = false;
+            });
         }
     }
 }
