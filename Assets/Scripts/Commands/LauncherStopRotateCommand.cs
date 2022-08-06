@@ -15,6 +15,7 @@ namespace DefaultNamespace.Commands
         public void Execute()
         {
             _horizontalRotator.Stop();
+            _horizontalRotator.Source.Stop();
             _vertRotator.Stop();
         }
     }

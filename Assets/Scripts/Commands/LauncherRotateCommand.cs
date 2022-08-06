@@ -21,6 +21,8 @@ namespace DefaultNamespace.Commands
         
         public void Execute()
         {
+            _horizontalRotator.Source.Play();
+            
             _vertRotator.Rotate(_data.VerticalAngles).OnComplete(() =>
             {
                 _vertRotator.RotationInAction = false; 
@@ -28,6 +30,7 @@ namespace DefaultNamespace.Commands
             _horizontalRotator.Rotate(_data.HorizontalAngles).OnComplete(() =>
             {
                 _horizontalRotator.RotationInAction = false;
+                _horizontalRotator.Source.Stop();
             });
         }
     }

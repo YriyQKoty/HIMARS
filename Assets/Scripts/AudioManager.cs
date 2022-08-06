@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace.Scriptables;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    [SerializeField]private List<AudioClip> _fireSounds;
 
-    public List<AudioClip> FireSounds => _fireSounds;
-    
+    [SerializeField] private List<MLRS> _MLRS;
+
+    [SerializeField] private MLRS _currentMLRS;
+
+    public List<MLRS> Mlrs => _MLRS;
+    public MLRS CurrentMlrs => _currentMLRS;
+
     public static AudioManager Instance { get; private set; }
 
     private void Awake() 
@@ -21,10 +26,4 @@ public class AudioManager : MonoBehaviour
             Instance = this; 
         } 
     }
-    
-    public AudioClip PickRandomFireSound()
-    {
-        return FireSounds[Random.Range(0, FireSounds.Count - 1)];
-    }
-
 }

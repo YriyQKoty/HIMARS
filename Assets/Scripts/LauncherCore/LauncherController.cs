@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using DefaultNamespace.Commands;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -24,7 +25,10 @@ namespace DefaultNamespace.LauncherCore
         [SerializeField] private LauncherVertRotator _vertRotator;
         [SerializeField] private FireController _fireController;
 
-        public bool DefaultState { get; private set; } = true;
+        public LauncherHorizontalRotator HorizontalRotator => _horizontalRotator;
+        public FireController FireController => _fireController;
+
+        public bool InDeadZone => _horizontalRotator.InDeadZone && _vertRotator.InDeadZone;
 
         private void Awake()
         {
@@ -34,8 +38,6 @@ namespace DefaultNamespace.LauncherCore
 
         public void RotateLauncher(RotationData rotationData)
         {
-            if (DefaultState) DefaultState = false;
-            
             if (_horizontalRotator.RotationInAction || _vertRotator.RotationInAction)
             {
                 Debug.LogWarning("Rotation still in Action! Wait for finishing!");
@@ -48,9 +50,14 @@ namespace DefaultNamespace.LauncherCore
 
         public void RotateToDefault()
         {
-            RotateLauncher(new RotationData(Vector3.zero,Vector3.zero));
+            if (_horizontalRotator.RotationInAction || _vertRotator.RotationInAction)
+            {
+                Debug.LogWarning("Rotation still in Action! Wait for finishing!");
+                return;
+            }
 
-            DefaultState = true;
+            ICommand cmd = new LauncherRotateCommand(_horizontalRotator, _vertRotator, new RotationData(Vector3.zero,Vector3.zero));
+            cmd.Execute();
         }
 
         public void RandomRotate()
@@ -73,12 +80,12 @@ namespace DefaultNamespace.LauncherCore
                 return;
             }
 
-            if (DefaultState)
+            if (InDeadZone)
             {
-                Debug.LogWarning("Launcher is in Default state. Rotate Launcher to fire.");
+                Debug.LogWarning("Launcher is in Dead zone. Rotate Launcher to fire.");
                 return;
             }
-            
+
             ICommand cmd = new FireCommand(_fireController);
             cmd.Execute();
             

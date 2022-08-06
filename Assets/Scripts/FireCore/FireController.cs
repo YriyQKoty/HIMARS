@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
@@ -8,10 +9,13 @@ namespace DefaultNamespace.LauncherCore
     public class FireController : MonoBehaviour
     {
         [SerializeField] private List<FireTube> _tubes;
+
+        public event Action OnFireStart;
+        public event Action OnFireEnd;
         
         public bool IsInDelay { get; private set; }
 
-        public void Fire()
+        public void Fire(Vector3 target)
         {
             if (IsInDelay)
             {
@@ -23,11 +27,21 @@ namespace DefaultNamespace.LauncherCore
 
             if (tube != null)
             {
-                tube.Fire();
-
+                OnFireStart?.Invoke();
+                
                 IsInDelay = true;
 
-                DOVirtual.DelayedCall(tube.Delay, () => IsInDelay = false);
+                DOVirtual.DelayedCall(tube.Delay * 0.1f, () =>
+                {
+                    tube.Fire(target);
+                });
+
+
+                DOVirtual.DelayedCall(tube.Delay, () =>
+                {
+                    IsInDelay = false;
+                    OnFireEnd?.Invoke();
+                });
             }
             else
             {
