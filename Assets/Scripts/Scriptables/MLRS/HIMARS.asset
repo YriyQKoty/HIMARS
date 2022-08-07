@@ -17,3 +17,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f94571eeb58693b4ab7b7699093dce57, type: 3}
   _aimingSounds:
   - {fileID: 8300000, guid: e162d1c619efee546ada02735b8fd561, type: 3}
+  _adoptedMissiles:
+  - {fileID: 11400000, guid: c139fbd77c0bbc546ac95dfa44d9451d, type: 2}

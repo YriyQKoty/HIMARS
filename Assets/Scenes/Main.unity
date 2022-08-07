@@ -761,7 +761,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 544509394744858973}
+      - m_Target: {fileID: 8224372630076726644}
         m_TargetAssemblyTypeName: DoorController, Assembly-CSharp
         m_MethodName: Open
         m_Mode: 1
@@ -1310,7 +1310,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 138216416700223831}
+      - m_Target: {fileID: 8378841710456804734}
         m_TargetAssemblyTypeName: DefaultNamespace.LauncherCore.LauncherController,
           Assembly-CSharp
         m_MethodName: Fire
@@ -1837,7 +1837,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 138216416700223831}
+      - m_Target: {fileID: 8378841710456804734}
         m_TargetAssemblyTypeName: DefaultNamespace.LauncherCore.LauncherController,
           Assembly-CSharp
         m_MethodName: RotateToDefault
@@ -2162,7 +2162,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8660080696347307869}
+      - m_Target: {fileID: 973449043444624244}
         m_TargetAssemblyTypeName: DoorController, Assembly-CSharp
         m_MethodName: Open
         m_Mode: 1
@@ -2295,7 +2295,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3966911175651543131}
+      - m_Target: {fileID: 4801373281782762610}
         m_TargetAssemblyTypeName: HatchController, Assembly-CSharp
         m_MethodName: Close
         m_Mode: 1
@@ -2735,7 +2735,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 138216416700223831}
+      - m_Target: {fileID: 8378841710456804734}
         m_TargetAssemblyTypeName: DefaultNamespace.LauncherCore.LauncherController,
           Assembly-CSharp
         m_MethodName: RandomRotate
@@ -3021,7 +3021,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 138216416700223831}
+      - m_Target: {fileID: 8378841710456804734}
         m_TargetAssemblyTypeName: DefaultNamespace.LauncherCore.LauncherController,
           Assembly-CSharp
         m_MethodName: CancelRotation
@@ -3383,7 +3383,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3966911175651543131}
+      - m_Target: {fileID: 4801373281782762610}
         m_TargetAssemblyTypeName: HatchController, Assembly-CSharp
         m_MethodName: Open
         m_Mode: 1
@@ -3585,21 +3585,10 @@ Terrain:
   m_GroupingID: 0
   m_RenderingLayerMask: 1
   m_AllowAutoConnect: 1
---- !u!114 &138216416700223831 stripped
+--- !u!114 &973449043444624244 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8309208385432298048, guid: 9e94d75e392d64740857b0250a71f48b, type: 3}
-  m_PrefabInstance: {fileID: 987868802271009931}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7635190e87b349cb9f25d0c75332f119, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &544509394744858973 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8445738526389676618, guid: 9e94d75e392d64740857b0250a71f48b, type: 3}
-  m_PrefabInstance: {fileID: 987868802271009931}
+  m_CorrespondingSourceObject: {fileID: 762796755209641034, guid: 9e94d75e392d64740857b0250a71f48b, type: 3}
+  m_PrefabInstance: {fileID: 7658417459460666024}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -3607,7 +3596,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7027d7e746bb7704284780e53485dac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &987868802271009931
+--- !u!114 &4801373281782762610 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5023337312354057036, guid: 9e94d75e392d64740857b0250a71f48b, type: 3}
+  m_PrefabInstance: {fileID: 7658417459460666024}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fc7f6e28220f554fabdd33a93b63659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &7658417459460666024
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -3664,25 +3664,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e94d75e392d64740857b0250a71f48b, type: 3}
---- !u!114 &3966911175651543131 stripped
+--- !u!114 &8224372630076726644 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5023337312354057036, guid: 9e94d75e392d64740857b0250a71f48b, type: 3}
-  m_PrefabInstance: {fileID: 987868802271009931}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fc7f6e28220f554fabdd33a93b63659, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8660080696347307869 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 762796755209641034, guid: 9e94d75e392d64740857b0250a71f48b, type: 3}
-  m_PrefabInstance: {fileID: 987868802271009931}
+  m_CorrespondingSourceObject: {fileID: 8445738526389676618, guid: 9e94d75e392d64740857b0250a71f48b, type: 3}
+  m_PrefabInstance: {fileID: 7658417459460666024}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7027d7e746bb7704284780e53485dac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8378841710456804734 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8309208385432298048, guid: 9e94d75e392d64740857b0250a71f48b, type: 3}
+  m_PrefabInstance: {fileID: 7658417459460666024}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7635190e87b349cb9f25d0c75332f119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
