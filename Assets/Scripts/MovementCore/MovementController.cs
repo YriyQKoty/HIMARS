@@ -8,7 +8,9 @@ namespace DefaultNamespace.MovementCore
     public class MovementController : MonoBehaviour
     {
         [SerializeField] private WheelsController _wheelsController;
+        [SerializeField] private SteeringWheelController _steeringWheelController;
         [SerializeField] private Rigidbody _rigidbody;
+        
 
         [SerializeField] private Transform COM;
 
@@ -27,6 +29,7 @@ namespace DefaultNamespace.MovementCore
             {
                 _rigidbody = GetComponent<Rigidbody>();
             }
+            
         }
 
         private void FixedUpdate()
@@ -67,6 +70,8 @@ namespace DefaultNamespace.MovementCore
                 Time.fixedDeltaTime * _vehicle.SteerSpeed) ;
             _wheelsController.RightFrontWheel.Collider.steerAngle =  Mathf.Lerp(_wheelsController.RightFrontWheel.Collider.steerAngle, _steeringAngle,
                 Time.fixedDeltaTime * _vehicle.SteerSpeed);
+            
+            _steeringWheelController.Rotate(_horizontalInput);
         }
         
         
