@@ -14,15 +14,10 @@ namespace DefaultNamespace.LauncherCore
         public event Action OnFireEnd;
         
         public bool IsInDelay { get; private set; }
+        public bool IsEmpty => _tubes.FirstOrDefault(t => t.IsReady) == null;
 
         public void Fire(Vector3 target)
         {
-            if (IsInDelay)
-            {
-                Debug.LogWarning("Is in delay. Wait!");
-                return;
-            }
-            
             var tube = _tubes.FirstOrDefault(t => t.IsReady);
 
             if (tube != null)
@@ -35,12 +30,12 @@ namespace DefaultNamespace.LauncherCore
                 {
                     tube.Fire(target);
                 });
-
-
+                
                 DOVirtual.DelayedCall(tube.Delay, () =>
                 {
-                    IsInDelay = false;
                     OnFireEnd?.Invoke();
+                    
+                    IsInDelay = false;
                 });
             }
             else

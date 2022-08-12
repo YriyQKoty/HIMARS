@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 2740429937692546329}
   - component: {fileID: 1200096277248319401}
   - component: {fileID: 7413028727443647795}
+  - component: {fileID: 1374914664}
   m_Layer: 0
   m_Name: Btn2
   m_TagString: Untagged
@@ -163,6 +164,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1374914664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204130249323832195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: 0
+  eraseRenderer: 1
 --- !u!1 &511049860878630637
 GameObject:
   m_ObjectHideFlags: 0
@@ -685,6 +700,7 @@ GameObject:
   - component: {fileID: 5969904782889884659}
   - component: {fileID: 8602927650340295450}
   - component: {fileID: 193262066340188430}
+  - component: {fileID: 2070060951}
   m_Layer: 0
   m_Name: FireBtn
   m_TagString: Untagged
@@ -755,6 +771,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2070060951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2460457110969732640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: 0
+  eraseRenderer: 1
 --- !u!1 &2488244965985736973
 GameObject:
   m_ObjectHideFlags: 0
@@ -877,6 +907,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2683960316591448287}
   - component: {fileID: 2683960316591448281}
+  - component: {fileID: 2037007495}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -941,6 +972,39 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &2037007495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683960316591448284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a78da3f00f3328541b4526c0b0b5ec5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lineThickness: 1.25
+  lineIntensity: 0.5
+  fillAmount: 0.2
+  lineColor0: {r: 0, g: 0.73955035, b: 1, a: 0.7176471}
+  lineColor1: {r: 0, g: 1, b: 0, a: 1}
+  lineColor2: {r: 0, g: 0, b: 1, a: 1}
+  additiveRendering: 0
+  backfaceCulling: 1
+  fillColor: {r: 0, g: 0, b: 1, a: 1}
+  useFillColor: 0
+  cornerOutlines: 0
+  addLinesBetweenColors: 0
+  scaleWithScreenSize: 1
+  alphaCutoff: 0.5
+  flipY: 0
+  sourceCamera: {fileID: 0}
+  autoEnableOutlines: 0
+  outlineCamera: {fileID: 0}
+  outlineShaderMaterial: {fileID: 0}
+  renderTexture: {fileID: 0}
+  extraRenderTexture: {fileID: 0}
 --- !u!1 &2683960317719611980
 GameObject:
   m_ObjectHideFlags: 0

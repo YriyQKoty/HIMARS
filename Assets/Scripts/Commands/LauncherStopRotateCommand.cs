@@ -18,5 +18,10 @@ namespace DefaultNamespace.Commands
             _horizontalRotator.Source.Stop();
             _vertRotator.Stop();
         }
+
+        public bool CanExecute()
+        {
+            return true;
+        }
     }
 }

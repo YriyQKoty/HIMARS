@@ -19,6 +19,11 @@ namespace DefaultNamespace.LauncherCore
                 VerticalAngles = verticalAngles;
             }
         }
+
+        private ICommand _rotateCommand;
+        private ICommand _rotateToDefaultCommand;
+        private ICommand _cancelRotationCommand;
+        private ICommand _fireCommand;
         
         [Header("Launcher Controller Components")]
         [SerializeField] private LauncherHorizontalRotator _horizontalRotator;
@@ -36,28 +41,35 @@ namespace DefaultNamespace.LauncherCore
             if (_vertRotator == null) _vertRotator = GetComponentInChildren<LauncherVertRotator>();
         }
 
+        private void Start()
+        {
+            InitCommands();
+        }
+
+        private void InitCommands()
+        {
+             _rotateCommand = new LauncherRotateCommand(_horizontalRotator, _vertRotator, new RotationData(Vector3.zero,Vector3.zero));
+             _rotateToDefaultCommand = new LauncherRotateCommand(_horizontalRotator, _vertRotator, new RotationData(Vector3.zero,Vector3.zero));
+             _cancelRotationCommand = new LauncherStopRotateCommand(_horizontalRotator, _vertRotator);
+
+             _fireCommand = new FireCommand(_fireController, _horizontalRotator, _vertRotator);
+        }
+
         public void RotateLauncher(RotationData rotationData)
         {
-            if (_horizontalRotator.RotationInAction || _vertRotator.RotationInAction)
+            if (_rotateCommand.CanExecute())
             {
-                Debug.LogWarning("Rotation still in Action! Wait for finishing!");
-                return;
-            }
-
-            ICommand cmd = new LauncherRotateCommand(_horizontalRotator, _vertRotator, rotationData);
-            cmd.Execute();
+                ((LauncherRotateCommand)_rotateCommand).Data = rotationData;
+                _rotateCommand.Execute();
+            };
         }
 
         public void RotateToDefault()
         {
-            if (_horizontalRotator.RotationInAction || _vertRotator.RotationInAction)
+            if (_rotateToDefaultCommand.CanExecute())
             {
-                Debug.LogWarning("Rotation still in Action! Wait for finishing!");
-                return;
+                _rotateToDefaultCommand.Execute();
             }
-
-            ICommand cmd = new LauncherRotateCommand(_horizontalRotator, _vertRotator, new RotationData(Vector3.zero,Vector3.zero));
-            cmd.Execute();
         }
 
         public void RandomRotate()
@@ -68,27 +80,18 @@ namespace DefaultNamespace.LauncherCore
 
         public void CancelRotation()
         {
-            ICommand cmd = new LauncherStopRotateCommand(_horizontalRotator, _vertRotator);
-            cmd.Execute();
+            if (_cancelRotationCommand.CanExecute())
+            {
+                _cancelRotationCommand.Execute();
+            }
         }
 
         public void Fire()
         {
-            if (_horizontalRotator.RotationInAction || _vertRotator.RotationInAction)
+            if (_fireCommand.CanExecute())
             {
-                Debug.LogWarning("Rotation still in Action! Wait for finishing!");
-                return;
+                _fireCommand.Execute();
             }
-
-            if (InDeadZone)
-            {
-                Debug.LogWarning("Launcher is in Dead zone. Rotate Launcher to fire.");
-                return;
-            }
-
-            ICommand cmd = new FireCommand(_fireController);
-            cmd.Execute();
-            
         }
 
     }

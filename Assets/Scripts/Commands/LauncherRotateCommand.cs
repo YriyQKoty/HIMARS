@@ -8,7 +8,7 @@ namespace DefaultNamespace.Commands
     {
         private readonly LauncherHorizontalRotator _horizontalRotator;
         private readonly LauncherVertRotator _vertRotator;
-        private readonly LauncherController.RotationData _data;
+        public LauncherController.RotationData Data { get; set; }
 
         public LauncherRotateCommand(LauncherHorizontalRotator horizontalRotator, 
             LauncherVertRotator vertRotator,
@@ -16,22 +16,31 @@ namespace DefaultNamespace.Commands
         {
             _horizontalRotator = horizontalRotator;
             _vertRotator = vertRotator;
-            _data = rotationData;
+            Data = rotationData;
         }
         
         public void Execute()
         {
             _horizontalRotator.Source.Play();
             
-            _vertRotator.Rotate(_data.VerticalAngles).OnComplete(() =>
+            _vertRotator.Rotate(Data.VerticalAngles).OnComplete(() =>
             {
                 _vertRotator.RotationInAction = false; 
             });
-            _horizontalRotator.Rotate(_data.HorizontalAngles).OnComplete(() =>
+            _horizontalRotator.Rotate(Data.HorizontalAngles).OnComplete(() =>
             {
                 _horizontalRotator.RotationInAction = false;
                 _horizontalRotator.Source.Stop();
             });
+        }
+
+        public bool CanExecute()
+        {
+            if (!_horizontalRotator.RotationInAction && !_vertRotator.RotationInAction) return true;
+            
+            Debug.LogWarning("Rotation still in Action! Wait for finishing!");
+            return false;
+
         }
     }
 }

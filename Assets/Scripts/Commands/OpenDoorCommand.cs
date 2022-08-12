@@ -15,5 +15,10 @@ namespace DefaultNamespace.Commands
         {
             _animator.Play(AnimationStateNames.OpenDoor);
         }
+
+        public bool CanExecute()
+        {
+            return true;
+        }
     }
 }
