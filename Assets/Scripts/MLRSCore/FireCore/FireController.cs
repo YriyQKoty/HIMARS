@@ -4,7 +4,7 @@ using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 
-namespace DefaultNamespace.LauncherCore
+namespace MLRSCore.FireCore
 {
     public class FireController : MonoBehaviour
     {
@@ -15,6 +15,10 @@ namespace DefaultNamespace.LauncherCore
         
         public bool IsInDelay { get; private set; }
         public bool IsEmpty => _tubes.FirstOrDefault(t => t.IsReady) == null;
+
+        public float Delay => _tubes[0].Delay;
+
+        public int ReadyTubesCount => _tubes.Where(t => t.IsReady).ToArray().Length;
 
         public void Fire(Vector3 target)
         {

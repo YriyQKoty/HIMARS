@@ -1,46 +1,67 @@
-﻿using DefaultNamespace.LauncherCore;
+﻿
 using DG.Tweening;
+using MLRSCore.LauncherCore;
 using UnityEngine;
 
-namespace DefaultNamespace.Commands
+namespace Commands
 {
     public class LauncherRotateCommand : ICommand
     {
-        private readonly LauncherHorizontalRotator _horizontalRotator;
-        private readonly LauncherVertRotator _vertRotator;
+        private readonly LauncherController _launcherController;
+        
         public LauncherController.RotationData Data { get; set; }
 
-        public LauncherRotateCommand(LauncherHorizontalRotator horizontalRotator, 
-            LauncherVertRotator vertRotator,
-            LauncherController.RotationData rotationData)
+        public LauncherRotateCommand(LauncherController launcherController,
+            LauncherController.RotationData rotationData )
         {
-            _horizontalRotator = horizontalRotator;
-            _vertRotator = vertRotator;
+            _launcherController = launcherController;
             Data = rotationData;
         }
         
         public void Execute()
         {
-            _horizontalRotator.Source.Play();
+            _launcherController.HorizontalRotator.Source.Play();
             
-            _vertRotator.Rotate(Data.VerticalAngles).OnComplete(() =>
+            if (!_launcherController.FireController.IsEmpty)
             {
-                _vertRotator.RotationInAction = false; 
+                _launcherController.IndicatorsController.NotReady();
+            }
+
+            _launcherController.VertRotator.Rotate(Data.VerticalAngles).OnComplete(() =>
+            {
+                _launcherController.VertRotator.RotationInAction = false; 
             });
-            _horizontalRotator.Rotate(Data.HorizontalAngles).OnComplete(() =>
+            _launcherController.HorizontalRotator.Rotate(Data.HorizontalAngles).OnComplete(() =>
             {
-                _horizontalRotator.RotationInAction = false;
-                _horizontalRotator.Source.Stop();
+                _launcherController.HorizontalRotator.RotationInAction = false;
+                _launcherController.HorizontalRotator.Source.Stop();
+
+                if (!_launcherController.FireController.IsEmpty)
+                {
+                    if (_launcherController.InDeadZone)
+                    {
+                        _launcherController.IndicatorsController.NotReady();
+                    }
+                    else
+                    {
+                        _launcherController.IndicatorsController.Ready();
+                    }
+               
+                }
+                else
+                {
+                    _launcherController.IndicatorsController.Empty();
+                }
+
             });
         }
 
         public bool CanExecute()
         {
-            if (!_horizontalRotator.RotationInAction && !_vertRotator.RotationInAction) return true;
+            if (!_launcherController.RotationInAction) return true;
             
             Debug.LogWarning("Rotation still in Action! Wait for finishing!");
             return false;
-
         }
     }
 }

@@ -1,6 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using DefaultNamespace.Scriptables;
+using MLRSCore.Sciptables;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour

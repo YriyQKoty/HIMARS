@@ -2,7 +2,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace Interfaces
 {
     public interface IRotatable
     {

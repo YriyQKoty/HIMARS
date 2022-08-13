@@ -1,8 +1,11 @@
 using System;
-using DefaultNamespace;
 using DG.Tweening;
+using Interfaces;
 using UnityEngine;
 
+namespace MLRSCore.LauncherCore
+{
+        
 public class LauncherVertRotator : MonoBehaviour, IRotatable
 {
     [Header("Rotator params")]
@@ -59,4 +62,5 @@ public class LauncherVertRotator : MonoBehaviour, IRotatable
             RotationInAction = false;
         });
     }
+}
 }

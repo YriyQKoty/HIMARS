@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using DefaultNamespace;
-using DefaultNamespace.Commands;
+using Commands;
 using UnityEngine;
 
 public class DoorController : MonoBehaviour

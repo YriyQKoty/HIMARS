@@ -1,22 +1,39 @@
-﻿using DefaultNamespace.LauncherCore;
+﻿using MLRSCore.LauncherCore;
 
-namespace DefaultNamespace.Commands
+namespace Commands
 {
     public class LauncherStopRotateCommand : ICommand
     {
-        private LauncherHorizontalRotator _horizontalRotator;
-        private LauncherVertRotator _vertRotator;
         
-        public LauncherStopRotateCommand(LauncherHorizontalRotator horizontalRotator, LauncherVertRotator vertRotator)
+        private readonly LauncherController _launcherController;
+        
+        public LauncherStopRotateCommand(LauncherController launcherController)
         {
-            _horizontalRotator = horizontalRotator;
-            _vertRotator = vertRotator;
+            _launcherController = launcherController;
         }
         public void Execute()
         {
-            _horizontalRotator.Stop();
-            _horizontalRotator.Source.Stop();
-            _vertRotator.Stop();
+            if (!_launcherController.FireController.IsEmpty)
+            {
+                if (_launcherController.InDeadZone)
+                {
+                    _launcherController.IndicatorsController.NotReady();
+                }
+                else
+                {
+                    _launcherController.IndicatorsController.Ready();
+                }
+               
+            }
+            else
+            {
+                _launcherController.IndicatorsController.Empty();
+            }
+          
+
+            _launcherController.HorizontalRotator.Stop();
+            _launcherController.HorizontalRotator.Source.Stop();
+            _launcherController.VertRotator.Stop();
         }
 
         public bool CanExecute()

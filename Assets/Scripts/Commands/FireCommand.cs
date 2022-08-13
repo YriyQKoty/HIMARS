@@ -1,49 +1,47 @@
-using DefaultNamespace.LauncherCore;
+using Interfaces;
+using MLRSCore.FireCore;
+using MLRSCore.LauncherCore;
 using UnityEngine;
 
-namespace DefaultNamespace.Commands
+namespace Commands
 {
     public class FireCommand : ICommand
     {
-        private readonly FireController _fireController;
-        private readonly LauncherHorizontalRotator _horizontalRotator;
-        private readonly LauncherVertRotator _vertRotator;
-        
+        private readonly LauncherController _launcherController;
+
         private Vector3 _target = Vector3.zero;
         
-        public FireCommand(FireController fireController, LauncherHorizontalRotator horizontalRotator, LauncherVertRotator vertRotator)
+        public FireCommand(LauncherController launcherController)
         {
-            _fireController = fireController;
-            _horizontalRotator = horizontalRotator;
-            _vertRotator = vertRotator;
+            _launcherController = launcherController;
         }
         
         public void Execute()
         {
-            _fireController.Fire(_target);
+            _launcherController.FireController.Fire(_target);
         }
 
         public bool CanExecute()
         {
-            if (_horizontalRotator.RotationInAction || _vertRotator.RotationInAction)
+            if (_launcherController.RotationInAction)
             {
                 Debug.LogWarning("Rotation still in Action! Wait for finishing!");
                 return false;
             }
 
-            if (_horizontalRotator.InDeadZone && _vertRotator.InDeadZone)
+            if (_launcherController.InDeadZone)
             {
                 Debug.LogWarning("Launcher is in Dead zone. Rotate Launcher to fire.");
                 return false;
             }
 
-            if (_fireController.IsInDelay)
+            if (_launcherController.FireController.IsInDelay)
             {
                 Debug.LogWarning("Is in delay. Wait!");
                 return false;
             }
 
-            if (_fireController.IsEmpty)
+            if (_launcherController.FireController.IsEmpty)
             {
                 Debug.LogWarning("All tubes are empty! Cannot fire!");
                 return false;

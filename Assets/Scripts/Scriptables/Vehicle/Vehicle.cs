@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DefaultNamespace.Scriptables.Vehicle
+namespace Scriptables.Vehicle
 {
     [CreateAssetMenu(fileName = "Vehicle data", menuName = "MLRS/Vehicle", order = 0)]
     public class Vehicle : ScriptableObject

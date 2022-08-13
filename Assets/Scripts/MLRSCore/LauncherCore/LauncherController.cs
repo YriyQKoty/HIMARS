@@ -1,10 +1,12 @@
 ﻿using System;
-using System.Linq;
-using DefaultNamespace.Commands;
+using Commands;
+using JetBrains.Annotations;
+using MLRSCore.FireCore;
+using MLRSCore.Indicators;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace DefaultNamespace.LauncherCore
+namespace MLRSCore.LauncherCore
 {
     public class LauncherController : MonoBehaviour
     {
@@ -25,16 +27,28 @@ namespace DefaultNamespace.LauncherCore
         private ICommand _cancelRotationCommand;
         private ICommand _fireCommand;
         
-        [Header("Launcher Controller Components")]
+        [Header("Rotation Components")] [Space]
         [SerializeField] private LauncherHorizontalRotator _horizontalRotator;
         [SerializeField] private LauncherVertRotator _vertRotator;
+        
+        [Header("Fire Components")] [Space]
         [SerializeField] private FireController _fireController;
 
+        [Header("Indicator Components")] [Space] 
+        [SerializeField] private IndicatorsController _indicatorsController;
+
+
         public LauncherHorizontalRotator HorizontalRotator => _horizontalRotator;
+        public LauncherVertRotator VertRotator => _vertRotator;
         public FireController FireController => _fireController;
+        public IndicatorsController IndicatorsController => _indicatorsController;
+
 
         public bool InDeadZone => _horizontalRotator.InDeadZone && _vertRotator.InDeadZone;
 
+        public bool RotationInAction => _horizontalRotator.RotationInAction || _vertRotator.RotationInAction;
+        
+        
         private void Awake()
         {
             if (_horizontalRotator == null) _horizontalRotator = GetComponentInChildren<LauncherHorizontalRotator>();
@@ -48,14 +62,14 @@ namespace DefaultNamespace.LauncherCore
 
         private void InitCommands()
         {
-             _rotateCommand = new LauncherRotateCommand(_horizontalRotator, _vertRotator, new RotationData(Vector3.zero,Vector3.zero));
-             _rotateToDefaultCommand = new LauncherRotateCommand(_horizontalRotator, _vertRotator, new RotationData(Vector3.zero,Vector3.zero));
-             _cancelRotationCommand = new LauncherStopRotateCommand(_horizontalRotator, _vertRotator);
+             _rotateCommand = new LauncherRotateCommand(this, new RotationData(Vector3.zero,Vector3.zero));
+             _rotateToDefaultCommand = new LauncherRotateCommand(this, new RotationData(Vector3.zero,Vector3.zero));
+             _cancelRotationCommand = new LauncherStopRotateCommand(this);
 
-             _fireCommand = new FireCommand(_fireController, _horizontalRotator, _vertRotator);
+             _fireCommand = new FireCommand(this);
         }
 
-        public void RotateLauncher(RotationData rotationData)
+        public void Rotate(RotationData rotationData)
         {
             if (_rotateCommand.CanExecute())
             {
@@ -74,7 +88,7 @@ namespace DefaultNamespace.LauncherCore
 
         public void RandomRotate()
         {
-            RotateLauncher(new RotationData(new Vector3(0,Random.Range(_horizontalRotator.YAngleRange.x, _horizontalRotator.YAngleRange.y),0), 
+            Rotate(new RotationData(new Vector3(0,Random.Range(_horizontalRotator.YAngleRange.x, _horizontalRotator.YAngleRange.y),0), 
                 new Vector3(Random.Range(_vertRotator.XAngleRange.x, _vertRotator.XAngleRange.y),0,0)));
         }
 
@@ -86,12 +100,13 @@ namespace DefaultNamespace.LauncherCore
             }
         }
 
-        public void Fire()
+        public void Fire([CanBeNull] Action callback = null)
         {
-            if (_fireCommand.CanExecute())
-            {
-                _fireCommand.Execute();
-            }
+            if (!_fireCommand.CanExecute()) return;
+            
+            _fireCommand.Execute();
+
+            callback?.Invoke();
         }
 
     }

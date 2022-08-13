@@ -1,8 +1,7 @@
-using System;
-using System.Linq;
+using MLRSCore.LauncherCore;
 using UnityEngine;
 
-namespace DefaultNamespace.LauncherCore
+namespace RecoilCore
 {
     public class RecoilController : MonoBehaviour
     {

@@ -1,8 +1,9 @@
 ﻿using System;
 using DG.Tweening;
+using Interfaces;
 using UnityEngine;
 
-namespace DefaultNamespace.LauncherCore
+namespace MLRSCore.LauncherCore
 {
     public class LauncherHorizontalRotator : MonoBehaviour, IRotatable
     {

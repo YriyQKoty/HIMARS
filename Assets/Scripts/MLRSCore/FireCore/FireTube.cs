@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
+using MissileCore;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-namespace DefaultNamespace.LauncherCore
+namespace MLRSCore.FireCore
 {
     public class FireTube : MonoBehaviour
     {

@@ -1,9 +1,8 @@
-using System;
-using System.Collections.Generic;
-using DefaultNamespace.Scriptables.Vehicle;
+
+using Scriptables.Vehicle;
 using UnityEngine;
 
-namespace DefaultNamespace.MovementCore
+namespace MovementCore
 {
     public class MovementController : MonoBehaviour
     {

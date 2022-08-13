@@ -1,8 +1,8 @@
-using DefaultNamespace.Scriptables.Missiles;
 using DG.Tweening;
+using Scriptables.Missiles;
 using UnityEngine;
 
-namespace DefaultNamespace.LauncherCore
+namespace MissileCore
 {
     public class MissileController : MonoBehaviour
     {

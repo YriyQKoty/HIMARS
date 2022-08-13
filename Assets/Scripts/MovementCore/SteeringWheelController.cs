@@ -1,8 +1,8 @@
-using System;
-using DefaultNamespace.Scriptables.Vehicle;
+
+using Scriptables.Vehicle;
 using UnityEngine;
 
-namespace DefaultNamespace.MovementCore
+namespace MovementCore
 {
     public class SteeringWheelController : MonoBehaviour
     {

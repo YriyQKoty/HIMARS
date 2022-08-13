@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Helpers;
+using UnityEngine;
 
-namespace DefaultNamespace.Commands
+namespace Commands
 {
     public class OpenDoorCommand : ICommand
     {

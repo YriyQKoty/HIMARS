@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DefaultNamespace.MovementCore
+namespace MovementCore
 {
     public class Wheel : MonoBehaviour
     {
