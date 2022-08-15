@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Scriptables.Missiles
+namespace Source.Scripts.Scriptables.Missiles
 {
     [CreateAssetMenu(fileName = "Missile data", menuName = "MLRS/Missile", order = 1)]
     public class Missile : ScriptableObject

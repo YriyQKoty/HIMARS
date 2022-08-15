@@ -1,8 +1,7 @@
-
-using Scriptables.Vehicle;
+using Source.Scripts.Scriptables.Vehicle;
 using UnityEngine;
 
-namespace MovementCore
+namespace Source.Scripts.MovementCore
 {
     public class MovementController : MonoBehaviour
     {
@@ -31,7 +30,7 @@ namespace MovementCore
             
         }
 
-        private void FixedUpdate()
+        public void Move()
         {
             GetInput();
 

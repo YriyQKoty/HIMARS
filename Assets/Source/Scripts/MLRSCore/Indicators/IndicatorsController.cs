@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace MLRSCore.Indicators
+namespace Source.Scripts.MLRSCore.Indicators
 {
     public class IndicatorsController : MonoBehaviour
     {

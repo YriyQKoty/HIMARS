@@ -1,9 +1,8 @@
-using Interfaces;
-using MLRSCore.FireCore;
-using MLRSCore.LauncherCore;
+using Source.Scripts.Interfaces;
+using Source.Scripts.MLRSCore.LauncherCore;
 using UnityEngine;
 
-namespace Commands
+namespace Source.Scripts.Commands
 {
     public class FireCommand : ICommand
     {

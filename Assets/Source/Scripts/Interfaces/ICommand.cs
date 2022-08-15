@@ -1,4 +1,4 @@
-﻿namespace Commands
+﻿namespace Source.Scripts.Interfaces
 {
     public interface ICommand
     {

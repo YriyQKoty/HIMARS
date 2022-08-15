@@ -1,9 +1,9 @@
 using System;
 using DG.Tweening;
-using Interfaces;
+using Source.Scripts.Interfaces;
 using UnityEngine;
 
-namespace MLRSCore.LauncherCore
+namespace Source.Scripts.MLRSCore.LauncherCore
 {
         
 public class LauncherVertRotator : MonoBehaviour, IRotatable

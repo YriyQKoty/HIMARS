@@ -4,7 +4,7 @@ using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 
-namespace MLRSCore.FireCore
+namespace Source.Scripts.MLRSCore.FireCore
 {
     public class FireController : MonoBehaviour
     {

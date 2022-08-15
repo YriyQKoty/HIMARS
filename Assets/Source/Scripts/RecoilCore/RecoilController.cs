@@ -1,7 +1,7 @@
-using MLRSCore.LauncherCore;
+using Source.Scripts.MLRSCore.LauncherCore;
 using UnityEngine;
 
-namespace RecoilCore
+namespace Source.Scripts.RecoilCore
 {
     public class RecoilController : MonoBehaviour
     {

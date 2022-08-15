@@ -1,8 +1,8 @@
 using DG.Tweening;
-using Scriptables.Missiles;
+using Source.Scripts.Scriptables.Missiles;
 using UnityEngine;
 
-namespace MissileCore
+namespace Source.Scripts.MissileCore
 {
     public class MissileController : MonoBehaviour
     {

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Scriptables.Missiles;
+using Source.Scripts.Scriptables.Missiles;
 using UnityEngine;
 
-namespace Scriptables.MLRS
+namespace Source.Scripts.Scriptables.MLRS
 {
     [CreateAssetMenu(fileName = "MLRS Data", menuName = "MLRS/MLRS", order = 0)]
     public class MlrsData : ScriptableObject

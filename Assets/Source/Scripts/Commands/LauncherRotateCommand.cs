@@ -1,9 +1,9 @@
-﻿
-using DG.Tweening;
-using MLRSCore.LauncherCore;
+﻿using DG.Tweening;
+using Source.Scripts.Interfaces;
+using Source.Scripts.MLRSCore.LauncherCore;
 using UnityEngine;
 
-namespace Commands
+namespace Source.Scripts.Commands
 {
     public class LauncherRotateCommand : ICommand
     {

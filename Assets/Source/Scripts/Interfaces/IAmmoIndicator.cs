@@ -1,4 +1,4 @@
-namespace Interfaces
+namespace Source.Scripts.Interfaces
 {
     public interface IAmmoIndicator
     {

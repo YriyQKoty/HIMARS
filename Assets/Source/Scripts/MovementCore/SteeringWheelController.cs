@@ -1,8 +1,7 @@
-
-using Scriptables.Vehicle;
+using Source.Scripts.Scriptables.Vehicle;
 using UnityEngine;
 
-namespace MovementCore
+namespace Source.Scripts.MovementCore
 {
     public class SteeringWheelController : MonoBehaviour
     {

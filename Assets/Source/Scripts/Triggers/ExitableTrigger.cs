@@ -1,20 +1,39 @@
-using System;
 using System.Collections;
+using Source.Scripts.Camera;
+using Source.Scripts.PlayerLogic;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace Source.Scripts.Triggers
 {
     public class ExitableTrigger : MonoBehaviour
     {
         [SerializeField] private ExitablePartController _exitablePartController;
-
+        
         private bool _entering = false;
-        private void OnTriggerStay(Collider other)
+
+        private PlayerController _player;
+
+        private void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag("Player")) return;
             
+            if (_player == null)   _player = other.GetComponent<PlayerController>();
+          
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (!other.CompareTag("Player")) return;
+
+            _player = null;
+        }
+
+        private void Update()
+        {
+            if (_player == null) return;
+            
             _exitablePartController.Outline.eraseRenderer = !CamerasManager.Instance.IsPointingAtOutlinedObject();
-         
+
             if (!_exitablePartController.Entered)
             {
                 if (_entering ) return;
@@ -23,7 +42,7 @@ namespace DefaultNamespace
                 {
                     StartCoroutine(Wait());
                     
-                    _exitablePartController.Enter(other.transform);
+                    _exitablePartController.Enter(_player.transform);
                 }
             }
             else
@@ -34,16 +53,9 @@ namespace DefaultNamespace
                 {
                     StartCoroutine(Wait());
                     
-                    _exitablePartController.Exit(other.transform);
+                    _exitablePartController.Exit(_player.transform);
                 }
             }
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (!other.CompareTag("Player")) return;
-            
-            _exitablePartController.Outline.eraseRenderer = true;
         }
 
         private IEnumerator Wait()

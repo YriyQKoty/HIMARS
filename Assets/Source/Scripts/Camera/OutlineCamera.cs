@@ -1,15 +1,14 @@
-using System;
 using cakeslice;
-using DefaultNamespace;
-using Scriptables.Cameras;
+using Source.Scripts.PlayerLogic;
+using Source.Scripts.Scriptables.Camera;
 using UnityEngine;
 
-namespace Cameras
+namespace Source.Scripts.Camera
 {
     public class OutlineCamera : MonoBehaviour
     {
         [Header("Camera & Outline")] [Space]
-        [SerializeField] private Camera _camera;
+        [SerializeField] private UnityEngine.Camera _camera;
         [SerializeField] private OutlineEffect _outlineEffect;
         [SerializeField] private FPSController _fpsController;
 
@@ -18,13 +17,13 @@ namespace Cameras
 
         private Quaternion _cameraInitRot;
 
-        public Camera Camera => _camera;
+        public UnityEngine.Camera Camera => _camera;
 
         public OutlineEffect OutlineEffect => _outlineEffect;
 
         private void Start()
         {
-            _cameraInitRot = _camera.transform.rotation;
+            _cameraInitRot = _camera.transform.localRotation;
         }
 
         public void OnDisable()
@@ -37,7 +36,7 @@ namespace Cameras
 
             _fpsController.enabled = false;
             _camera.enabled = false;
-            _camera.transform.rotation = _cameraInitRot;
+            _camera.transform.localRotation = _cameraInitRot;
 
         }
 

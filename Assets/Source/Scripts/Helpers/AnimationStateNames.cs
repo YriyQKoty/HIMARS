@@ -1,4 +1,4 @@
-﻿namespace Helpers
+﻿namespace Source.Scripts.Helpers
 {
     public static class AnimationStateNames
     {

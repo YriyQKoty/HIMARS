@@ -1,12 +1,13 @@
 ﻿using System;
-using Commands;
 using JetBrains.Annotations;
-using MLRSCore.FireCore;
-using MLRSCore.Indicators;
+using Source.Scripts.Commands;
+using Source.Scripts.Interfaces;
+using Source.Scripts.MLRSCore.FireCore;
+using Source.Scripts.MLRSCore.Indicators;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace MLRSCore.LauncherCore
+namespace Source.Scripts.MLRSCore.LauncherCore
 {
     public class LauncherController : MonoBehaviour
     {

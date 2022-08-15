@@ -1,6 +1,7 @@
-﻿using MLRSCore.LauncherCore;
+﻿using Source.Scripts.Interfaces;
+using Source.Scripts.MLRSCore.LauncherCore;
 
-namespace Commands
+namespace Source.Scripts.Commands
 {
     public class LauncherStopRotateCommand : ICommand
     {

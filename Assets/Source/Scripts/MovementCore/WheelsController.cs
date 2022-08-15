@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MovementCore
+namespace Source.Scripts.MovementCore
 {
     public class WheelsController : MonoBehaviour
     {

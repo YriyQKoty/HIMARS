@@ -1,8 +1,10 @@
+using System;
 using cakeslice;
-using Interfaces;
+using Source.Scripts.Camera;
+using Source.Scripts.Interfaces;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace Source.Scripts.Triggers
 {
     public abstract class ExitablePartController : MonoBehaviour, IExitable
     {
@@ -15,11 +17,15 @@ namespace DefaultNamespace
         [Header("Seat prop")][Space]
         [SerializeField] private SeatType _seat;
 
+        public SeatType Seat => _seat;
+
         public bool Entered { get; protected set; }
 
         public Outline Outline => _outline;
 
         public MeshRenderer MeshRenderer => _meshRenderer;
+        public event Action OnEnter;
+        public event Action OnExit;
 
         public abstract void Enter(Transform player);
         
@@ -43,5 +49,16 @@ namespace DefaultNamespace
                     break;
             }
         }
+        
+        protected void OnEnterInvoke()
+        {
+            OnEnter?.Invoke();
+        }
+        
+        protected void OnExitInvoke()
+        {
+            OnExit?.Invoke();
+        }
+
     }
 }

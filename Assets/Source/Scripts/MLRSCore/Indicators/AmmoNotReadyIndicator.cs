@@ -1,7 +1,7 @@
-using Interfaces;
+using Source.Scripts.Interfaces;
 using UnityEngine;
 
-namespace MLRSCore.Indicators
+namespace Source.Scripts.MLRSCore.Indicators
 {
     public class AmmoNotReadyIndicator : MonoBehaviour, IAmmoIndicator
     {

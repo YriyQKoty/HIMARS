@@ -1,8 +1,7 @@
-﻿
-using DG.Tweening;
+﻿using DG.Tweening;
 using UnityEngine;
 
-namespace Interfaces
+namespace Source.Scripts.Interfaces
 {
     public interface IRotatable
     {

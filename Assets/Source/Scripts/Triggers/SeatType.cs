@@ -1,4 +1,4 @@
-namespace DefaultNamespace
+namespace Source.Scripts.Triggers
 {
     public enum SeatType
     {

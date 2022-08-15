@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace Source.Scripts.PlayerLogic
 {
     public class FPSController : MonoBehaviour
     {

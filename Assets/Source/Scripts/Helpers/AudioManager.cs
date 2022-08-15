@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Scriptables.MLRS;
+using Source.Scripts.Scriptables.MLRS;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour

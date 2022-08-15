@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Cameras
+namespace Source.Scripts.Camera
 {
     public class CamerasHolder : MonoBehaviour
     {

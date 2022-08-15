@@ -1,11 +1,11 @@
 using cakeslice;
 using DG.Tweening;
-using Helpers;
-using MLRSCore.Indicators;
-using MLRSCore.LauncherCore;
+using Source.Scripts.Helpers;
+using Source.Scripts.MLRSCore.Indicators;
+using Source.Scripts.MLRSCore.LauncherCore;
 using UnityEngine;
 
-namespace MLRSCore.FireCore
+namespace Source.Scripts.MLRSCore.FireCore
 {
     public class FireButton : MonoBehaviour
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Scriptables.Cameras
+namespace Source.Scripts.Scriptables.Camera
 {
     [CreateAssetMenu(fileName = "Outline", menuName = "Outline Data", order = 0)]
     public class OutlineCameraData : ScriptableObject

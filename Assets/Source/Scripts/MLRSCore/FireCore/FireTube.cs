@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using MissileCore;
+using Source.Scripts.MissileCore;
 using UnityEngine;
 
-namespace MLRSCore.FireCore
+namespace Source.Scripts.MLRSCore.FireCore
 {
     public class FireTube : MonoBehaviour
     {

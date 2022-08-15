@@ -1,7 +1,7 @@
 using cakeslice;
 using UnityEngine;
 
-namespace Interfaces
+namespace Source.Scripts.Interfaces
 {
     public interface IExitable
     {

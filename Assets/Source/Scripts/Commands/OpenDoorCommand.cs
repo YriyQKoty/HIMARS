@@ -1,7 +1,8 @@
-﻿using Helpers;
+﻿using Source.Scripts.Helpers;
+using Source.Scripts.Interfaces;
 using UnityEngine;
 
-namespace Commands
+namespace Source.Scripts.Commands
 {
     public class OpenDoorCommand : ICommand
     {
