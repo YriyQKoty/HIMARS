@@ -15,7 +15,7 @@ namespace MLRSCore.FireCore
 
         private void Start()
         {
-            _source.clip = AudioManager.Instance.CurrentMlrs.PickRandomFireSound();
+            _source.clip = AudioManager.Instance.CurrentMlrsData.PickRandomFireSound();
         }
 
         public float Delay => _delay;

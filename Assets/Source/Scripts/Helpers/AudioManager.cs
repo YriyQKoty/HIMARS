@@ -1,16 +1,16 @@
 using System.Collections.Generic;
-using MLRSCore.Sciptables;
+using Scriptables.MLRS;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
 
-    [SerializeField] private List<MLRS> _MLRS;
+    [SerializeField] private List<MlrsData> _MLRS;
 
-    [SerializeField] private MLRS _currentMLRS;
+    [SerializeField] private MlrsData currentMlrsData;
 
-    public List<MLRS> Mlrs => _MLRS;
-    public MLRS CurrentMlrs => _currentMLRS;
+    public List<MlrsData> Mlrs => _MLRS;
+    public MlrsData CurrentMlrsData => currentMlrsData;
 
     public static AudioManager Instance { get; private set; }
 

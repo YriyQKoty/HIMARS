@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using Scriptables.Missiles;
 using UnityEngine;
 
-namespace MLRSCore.Sciptables
+namespace Scriptables.MLRS
 {
     [CreateAssetMenu(fileName = "MLRS Data", menuName = "MLRS/MLRS", order = 0)]
-    public class MLRS : ScriptableObject
+    public class MlrsData : ScriptableObject
     {
         [SerializeField]private List<AudioClip> _fireSounds;
         [SerializeField] private List<AudioClip> _aimingSounds;

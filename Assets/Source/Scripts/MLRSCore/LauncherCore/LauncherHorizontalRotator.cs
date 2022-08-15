@@ -29,7 +29,7 @@ namespace MLRSCore.LauncherCore
 
         private void Start()
         {
-            _source.clip = AudioManager.Instance.CurrentMlrs.PickAimingSound();
+            _source.clip = AudioManager.Instance.CurrentMlrsData.PickAimingSound();
             _source.loop = true;
         }
 
