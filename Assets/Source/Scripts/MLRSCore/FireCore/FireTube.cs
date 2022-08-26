@@ -11,6 +11,8 @@ namespace Source.Scripts.MLRSCore.FireCore
 
         [Header("Missile")] [SerializeField] private MissileController missileController;
 
+        public MissileController MissileController => missileController;
+
         [SerializeField] private float _delay = 0.5f;
 
         private void Start()
@@ -21,13 +23,13 @@ namespace Source.Scripts.MLRSCore.FireCore
         public float Delay => _delay;
         public bool IsReady { get; private set; } = true;
 
-        public void Fire(Vector3 target)
+        public void Fire(FireData data)
         {
             IsReady = false;
             
             _source.PlayOneShot(_source.clip);
             
-            missileController.Launch(Vector3.back);
+            missileController.Launch(data);
             
             foreach (var particle in _particles)
             {

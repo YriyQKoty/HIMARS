@@ -6,17 +6,17 @@ namespace Source.Scripts.MLRSCore.Indicators
     {
         [Header("Indicators")] 
         [Space] 
-        [SerializeField] private AmmoReadyIndicator _ammoReadyIndicator;
+        [SerializeField] private AmmoLightIndicator _ammoReadyIndicator;
         [Space]
-        [SerializeField] private AmmoNotReadyIndicator ammoNotReadyIndicator;
+        [SerializeField] private AmmoLightIndicator _ammoNotReadyIndicator;
         [Space]
-        [SerializeField] private AmmoEmptyIndicator _ammoEmptyIndicator;
+        [SerializeField] private AmmoLightIndicator _ammoEmptyIndicator;
         [Space]
-        [SerializeField] private AmmoReloadIndicator _ammoReloadIndicator;
+        [SerializeField] private AmmoLightIndicator _ammoReloadIndicator;
 
         public void Reloading()
         {
-            ammoNotReadyIndicator.Disable();
+            _ammoNotReadyIndicator.Disable();
             _ammoReadyIndicator.Disable();
             _ammoEmptyIndicator.Disable();
             
@@ -25,7 +25,7 @@ namespace Source.Scripts.MLRSCore.Indicators
 
         public void Ready()
         {
-            ammoNotReadyIndicator.Disable();
+            _ammoNotReadyIndicator.Disable();
             _ammoEmptyIndicator.Disable();
             _ammoReloadIndicator.Disable();
             
@@ -38,13 +38,13 @@ namespace Source.Scripts.MLRSCore.Indicators
             _ammoEmptyIndicator.Disable();
             _ammoReloadIndicator.Disable();
             
-            ammoNotReadyIndicator.Enable();
+            _ammoNotReadyIndicator.Enable();
         }
 
         public void Empty()
         {
             _ammoReadyIndicator.Disable();
-            ammoNotReadyIndicator.Disable();
+            _ammoNotReadyIndicator.Disable();
             _ammoReloadIndicator.Disable();
             
             _ammoEmptyIndicator.Enable();

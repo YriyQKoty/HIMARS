@@ -1,6 +1,9 @@
+using System;
 using DG.Tweening;
+using Source.Scripts.MLRSCore.FireCore;
 using Source.Scripts.Scriptables.Missiles;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Source.Scripts.MissileCore
 {
@@ -16,17 +19,28 @@ namespace Source.Scripts.MissileCore
         [Header("Missile data")] [SerializeField]
         private Missile _missile;
 
+
         [Header("Effects")] [SerializeField] private ParticleSystem _particle;
 
         private bool _launched = false;
+        private Vector3 _target;
+        private float _angle;
+        private Transform _spawnTransform;
+        private Collider[] _colliders = new Collider[10];
+
+        public Missile Missile => _missile;
 
         private void Awake()
         {
             if (_rigidbody == null) _rigidbody = GetComponent<Rigidbody>();
         }
 
-        public void Launch(Vector3 targetPos)
+        public void Launch(FireData data)
         {
+            _target = data.Target;
+            _angle = data.Angle;
+            _spawnTransform = data.SpawnTransform;
+            
             _mesh.transform.localScale = Vector3.zero;
             _mesh.SetActive(true);
 
@@ -34,34 +48,63 @@ namespace Source.Scripts.MissileCore
             gameObject.transform.SetParent(null);
 
             _rigidbody.isKinematic = false;
+            _collider.enabled = true;
             _launched = true;
 
             _particle.Play();
+            Shoot();
 
         }
 
-        private void AddDeviation()
+        private void Shoot()
         {
-            var deviation = new Vector3(Mathf.Cos(Time.time * _missile.DeviationSpeed), 0, 0);
+            var fromTo = new Vector3(
+                Random.Range(_target.x - _missile.DeviationRadius, _target.x + _missile.DeviationRadius), 
+                _target.y,
+                Random.Range(_target.z - _missile.DeviationRadius, _target.z + _missile.DeviationRadius)) 
+                         - transform.position;
             
-            var predictionOffset = transform.TransformDirection(deviation) * _missile.DeviationAmount * _missile.TimePercentage;
+            var fromToXZ = new Vector3(fromTo.x, 0, fromTo.z);
 
-            var _deviatedPrediction = _rigidbody.position + _rigidbody.velocity + predictionOffset;
+            var x = fromToXZ.magnitude;
+            var y = fromTo.y;
+
+            var v2 = (Physics.gravity.y * x * x) / (2 * (y - Mathf.Tan(_angle * Mathf.Deg2Rad) * x) *
+                                                      Mathf.Pow(Mathf.Cos(_angle * Mathf.Deg2Rad), 2));
+
+            var v = Mathf.Sqrt(Mathf.Abs(v2));
             
-            var heading = _deviatedPrediction - transform.position;
-
-            var rotation = Quaternion.LookRotation(heading);
+            _rigidbody.AddForce(-_spawnTransform.forward * v, ForceMode.Impulse);
           
-            _rigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, 45 * Time.deltaTime));
         }
-
-        private void FixedUpdate()
+        
+        private void Update()
         {
             if (!_launched) return;
 
-            _rigidbody.velocity = transform.forward * _missile.Speed;
+            transform.rotation = Quaternion.LookRotation(_rigidbody.velocity);
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            //todo effects
             
-            AddDeviation();
+            var size = Physics.OverlapSphereNonAlloc(transform.position, _missile.ExplosionRadius, _colliders);
+            for (int i = 0; i < size; i++)
+            {
+                var rg = _colliders[i].GetComponent<Rigidbody>();
+                if (rg != null)
+                {
+                    rg.AddExplosionForce(_missile.ExplosionForce, transform.position, _missile.ExplosionRadius);
+                }
+            }
+
+            _launched = false;
+            _mesh.transform.DOScale(Vector3.zero, 0.02f).OnComplete(() =>
+            {
+                _collider.enabled = false;
+                _rigidbody.isKinematic = true;
+            });
         }
     }
 }

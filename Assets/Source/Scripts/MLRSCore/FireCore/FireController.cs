@@ -2,10 +2,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using Source.Scripts.Scriptables.Missiles;
 using UnityEngine;
 
 namespace Source.Scripts.MLRSCore.FireCore
 {
+    public struct FireData
+    {
+        public Vector3 Target { get; set; }
+        public float Angle { get; set; }
+        public Transform SpawnTransform { get; set; }
+        public FireData(Vector3 target, Transform spawn, float angle)
+        {
+            Target = target;
+            SpawnTransform = spawn;
+            Angle = angle;
+        }
+    }
     public class FireController : MonoBehaviour
     {
         [SerializeField] private List<FireTube> _tubes;
@@ -18,9 +31,11 @@ namespace Source.Scripts.MLRSCore.FireCore
 
         public float Delay => _tubes[0].Delay;
 
+        public Missile CurrentMissileCharacteristics => _tubes[0]?.MissileController.Missile;
+
         public int ReadyTubesCount => _tubes.Where(t => t.IsReady).ToArray().Length;
 
-        public void Fire(Vector3 target)
+        public void Fire(FireData data)
         {
             var tube = _tubes.FirstOrDefault(t => t.IsReady);
 
@@ -32,7 +47,7 @@ namespace Source.Scripts.MLRSCore.FireCore
 
                 DOVirtual.DelayedCall(tube.Delay * 0.1f, () =>
                 {
-                    tube.Fire(target);
+                    tube.Fire(data);
                 });
                 
                 DOVirtual.DelayedCall(tube.Delay, () =>

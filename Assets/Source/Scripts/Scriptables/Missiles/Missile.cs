@@ -5,22 +5,32 @@ namespace Source.Scripts.Scriptables.Missiles
     [CreateAssetMenu(fileName = "Missile data", menuName = "MLRS/Missile", order = 1)]
     public class Missile : ScriptableObject
     {
-        [SerializeField] private float _speed;
-        [SerializeField] private AudioClip _sound;
+        [Header("Sounds")][Space]
+        [SerializeField] private AudioClip _flyingSound;
+        [SerializeField] private AudioClip _explosionSound;
 
-        [Header("Deviation params")] 
-        [SerializeField] private float _deviationSpeed;
-        [SerializeField] private float _deviationAmount;
-        [SerializeField] private float _timePercentage;
+        [Header("Explosion chars")] [Space]
+        [SerializeField] private float _explosionForce;
 
-        public float TimePercentage => _timePercentage;
+        [SerializeField] private float _explosionRadius;
+        
+        [Header("Ballistic chars")] [Space]
+        [SerializeField] private float _maxDistanceTimePeak;
+        [SerializeField] private float _initialVelocity;
+        [SerializeField] private float _deviationRadius;
+        
+        public float MaxDistanceTimePeak => _maxDistanceTimePeak;
 
-        public float DeviationSpeed => _deviationSpeed;
+        public float MaximumRange => _maxDistanceTimePeak * 2;
 
-        public float DeviationAmount => _deviationAmount;
+        public float InitialVelocity => _initialVelocity;
 
-        public float Speed => _speed;
+        public float ExplosionForce => _explosionForce;
 
-        public AudioClip Sound => _sound;
+        public float ExplosionRadius => _explosionRadius;
+
+        public float DeviationRadius => _deviationRadius;
+
+        public AudioClip FlyingSound => _flyingSound;
     }
 }

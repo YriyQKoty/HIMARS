@@ -44,7 +44,7 @@ namespace Source.Scripts.MovementCore
 
             if (Input.GetKeyDown(KeyCode.R))
             {
-                _launcherController.RandomRotate();
+                _launcherController.AnglesDeterminator.RotateToTarget();
             }
             if (Input.GetKeyDown(KeyCode.T))
             {

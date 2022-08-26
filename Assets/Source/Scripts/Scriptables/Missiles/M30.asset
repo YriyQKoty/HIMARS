@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 30
   _sound: {fileID: 0}
-  _deviationSpeed: 25
-  _deviationAmount: 2
-  _timePercentage: 0.15
+  _explosionForce: 5000
+  _explosionRadius: 150
+  _maxDistanceTimePeak: 500
+  _initialVelocity: 840
+  _deviationRadius: 15
