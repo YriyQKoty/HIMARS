@@ -1,5 +1,5 @@
 # HIMARS
- Test project for buldying up skills.
+ Test project for building up skills in ballistics and simulator mechanics.
 
 
 
