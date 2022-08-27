@@ -16,10 +16,10 @@ namespace Source.Scripts.MovementCore
         [SerializeField] private LauncherController _launcherController;
         [SerializeField] private FireButton _fireButton;
         
-        [SerializeField] private List<ExitablePartController> _exitableSeats;
+        [SerializeField] private List<SeatController> _exitableSeats;
 
-        private ExitablePartController _operatorPart;
-        private ExitablePartController _driverPart;
+        private SeatController _operatorPart;
+        private SeatController _driverPart;
 
         private bool IsMoving = false;
 
@@ -44,7 +44,7 @@ namespace Source.Scripts.MovementCore
 
             if (Input.GetKeyDown(KeyCode.R))
             {
-                _launcherController.AnglesDeterminator.RotateToTarget();
+                _launcherController.RotateToTarget();
             }
             if (Input.GetKeyDown(KeyCode.T))
             {

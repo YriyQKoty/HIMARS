@@ -11,18 +11,19 @@ namespace Source.Scripts.MLRSCore.FireCore
     {
         public Vector3 Target { get; set; }
         public float Angle { get; set; }
-        public Transform SpawnTransform { get; set; }
         public FireData(Vector3 target, Transform spawn, float angle)
         {
             Target = target;
-            SpawnTransform = spawn;
             Angle = angle;
         }
     }
     public class FireController : MonoBehaviour
     {
-        [SerializeField] private List<FireTube> _tubes;
+        [Header("Reloadable Tubes Container")]
+        [SerializeField] private TubesContainer _tubesContainer;
 
+        private List<FireTube> _tubes;
+        
         public event Action OnFireStart;
         public event Action OnFireEnd;
         
@@ -34,6 +35,11 @@ namespace Source.Scripts.MLRSCore.FireCore
         public Missile CurrentMissileCharacteristics => _tubes[0]?.MissileController.Missile;
 
         public int ReadyTubesCount => _tubes.Where(t => t.IsReady).ToArray().Length;
+
+        private void Start()
+        {
+            _tubes = _tubesContainer.FireTubes;
+        }
 
         public void Fire(FireData data)
         {

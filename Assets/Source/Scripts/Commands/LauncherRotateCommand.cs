@@ -7,58 +7,25 @@ namespace Source.Scripts.Commands
 {
     public class LauncherRotateCommand : ICommand
     {
-        private readonly LauncherController _launcherController;
+        private readonly LauncherRotator _launcherRotator;
         
         public LauncherController.RotationData Data { get; set; }
 
-        public LauncherRotateCommand(LauncherController launcherController,
+        public LauncherRotateCommand(LauncherRotator launcherRotator,
             LauncherController.RotationData rotationData )
         {
-            _launcherController = launcherController;
+            _launcherRotator = launcherRotator;
             Data = rotationData;
         }
         
         public void Execute()
         {
-            _launcherController.HorizontalRotator.Source.Play();
-            
-            if (!_launcherController.FireController.IsEmpty)
-            {
-                _launcherController.IndicatorsController.NotReady();
-            }
-
-            _launcherController.VertRotator.Rotate(Data.VerticalAngles).OnComplete(() =>
-            {
-                _launcherController.VertRotator.RotationInAction = false; 
-            });
-            _launcherController.HorizontalRotator.Rotate(Data.HorizontalAngles).OnComplete(() =>
-            {
-                _launcherController.HorizontalRotator.RotationInAction = false;
-                _launcherController.HorizontalRotator.Source.Stop();
-
-                if (!_launcherController.FireController.IsEmpty)
-                {
-                    if (_launcherController.InDeadZone)
-                    {
-                        _launcherController.IndicatorsController.NotReady();
-                    }
-                    else
-                    {
-                        _launcherController.IndicatorsController.Ready();
-                    }
-               
-                }
-                else
-                {
-                    _launcherController.IndicatorsController.Empty();
-                }
-
-            });
+            _launcherRotator.Rotate(Data.Angles);
         }
 
         public bool CanExecute()
         {
-            if (!_launcherController.RotationInAction) return true;
+            if (!_launcherRotator.RotationInAction) return true;
             
             Debug.LogWarning("Rotation still in Action! Wait for finishing!");
             return false;

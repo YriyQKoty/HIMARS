@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Source.Scripts.Triggers
 {
-    public class HatchController : ExitablePartController
+    public class HatchController : SeatController
     {
         [SerializeField] private Vector3 _closedHatch = new Vector3(0, 0, 0);
         [SerializeField] private Vector3 _openedHatch = new Vector3(120f, 0, 0);

@@ -19,8 +19,6 @@ namespace Source.Scripts.Camera
 
         public UnityEngine.Camera Camera => _camera;
 
-        public OutlineEffect OutlineEffect => _outlineEffect;
-
         private void Start()
         {
             _cameraInitRot = _camera.transform.localRotation;

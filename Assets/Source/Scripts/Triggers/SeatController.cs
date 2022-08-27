@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Source.Scripts.Triggers
 {
-    public abstract class ExitablePartController : MonoBehaviour, IExitable
+    public abstract class SeatController : MonoBehaviour, IExitable
     {
         [Header("Outline props")][Space]
         [SerializeField] protected Outline _outline;
@@ -23,7 +23,6 @@ namespace Source.Scripts.Triggers
 
         public Outline Outline => _outline;
 
-        public MeshRenderer MeshRenderer => _meshRenderer;
         public event Action OnEnter;
         public event Action OnExit;
 

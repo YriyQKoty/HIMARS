@@ -7,45 +7,48 @@ namespace Source.Scripts.Commands
 {
     public class FireCommand : ICommand
     {
-        private readonly LauncherController _launcherController;
+        private readonly LauncherRotator _launcherRotator;
+        private readonly FireController _fireController;
         private readonly AnglesDeterminator _anglesDeterminator;
-
-        private Vector3 _target = Vector3.zero;
+        
         public FireData Data;
         
-        public FireCommand(LauncherController launcherController, AnglesDeterminator anglesDeterminator, FireData data)
+        public FireCommand( LauncherRotator launcherRotator, FireController fireController, 
+            AnglesDeterminator anglesDeterminator, 
+            FireData data)
         {
-            _launcherController = launcherController;
+            _launcherRotator = launcherRotator;
+            _fireController = fireController;
             _anglesDeterminator = anglesDeterminator;
             Data = data;
         }
         
         public void Execute()
         {
-            _launcherController.FireController.Fire(Data);
+            _fireController.Fire(Data);
         }
 
         public bool CanExecute()
         {
-            if (_launcherController.RotationInAction)
+            if (_launcherRotator.RotationInAction)
             {
                 Debug.LogWarning("Rotation still in Action! Wait for finishing!");
                 return false;
             }
 
-            if (_launcherController.InDeadZone)
+            if (_launcherRotator.InDeadZone)
             {
                 Debug.LogWarning("Launcher is in Dead zone. Rotate Launcher to fire.");
                 return false;
             }
 
-            if (_launcherController.FireController.IsInDelay)
+            if ( _fireController.IsInDelay)
             {
                 Debug.LogWarning("Is in delay. Wait!");
                 return false;
             }
 
-            if (_launcherController.FireController.IsEmpty)
+            if ( _fireController.IsEmpty)
             {
                 Debug.LogWarning("All tubes are empty! Cannot fire!");
                 return false;
@@ -53,7 +56,7 @@ namespace Source.Scripts.Commands
 
             //if distance to target is greater than maximum range (always when angle is 45 deg)
             if (_anglesDeterminator.DistanceToTarget >
-                _launcherController.FireController.CurrentMissileCharacteristics.MaximumRange)
+                _fireController.CurrentMissileCharacteristics.MaximumRange)
             {
                 Debug.LogWarning("Unreachable target! Cannot fire!");
                 return false;

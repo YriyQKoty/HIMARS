@@ -7,7 +7,7 @@ namespace Source.Scripts.Triggers
 {
     public class ExitableTrigger : MonoBehaviour
     {
-        [SerializeField] private ExitablePartController _exitablePartController;
+        [SerializeField] private SeatController seatController;
         
         private bool _entering = false;
 
@@ -32,9 +32,9 @@ namespace Source.Scripts.Triggers
         {
             if (_player == null) return;
             
-            _exitablePartController.Outline.eraseRenderer = !CamerasManager.Instance.IsPointingAtOutlinedObject();
+            seatController.Outline.eraseRenderer = !CamerasManager.Instance.IsPointingAtOutlinedObject();
 
-            if (!_exitablePartController.Entered)
+            if (!seatController.Entered)
             {
                 if (_entering ) return;
 
@@ -42,7 +42,7 @@ namespace Source.Scripts.Triggers
                 {
                     StartCoroutine(Wait());
                     
-                    _exitablePartController.Enter(_player.transform);
+                    seatController.Enter(_player.transform);
                 }
             }
             else
@@ -53,7 +53,7 @@ namespace Source.Scripts.Triggers
                 {
                     StartCoroutine(Wait());
                     
-                    _exitablePartController.Exit(_player.transform);
+                    seatController.Exit(_player.transform);
                 }
             }
         }

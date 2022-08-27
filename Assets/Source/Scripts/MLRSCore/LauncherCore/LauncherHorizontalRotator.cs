@@ -7,11 +7,6 @@ namespace Source.Scripts.MLRSCore.LauncherCore
 {
     public class LauncherHorizontalRotator : MonoBehaviour, IRotatable
     {
-        [Header("Audio")]
-        [SerializeField] private AudioSource _source;
-
-        public AudioSource Source => _source;
-
         [Header("Rotator params")]
         [SerializeField] private Vector2 yAngleRange = new Vector2(-140, 140);
         
@@ -26,12 +21,6 @@ namespace Source.Scripts.MLRSCore.LauncherCore
         public bool RotationInAction { get; set; }
         
         public bool InDeadZone { get; private set; }
-
-        private void Start()
-        {
-            _source.clip = AudioManager.Instance.CurrentMlrsData.PickAimingSound();
-            _source.loop = true;
-        }
 
         private void Update()
         {
@@ -55,7 +44,6 @@ namespace Source.Scripts.MLRSCore.LauncherCore
 
         public Tween Rotate(Vector3 angleVector)
         {
-            _source.Play();
             RotationInAction = true;
 
             _tween = Math.Abs(transform.localRotation.eulerAngles.y - angleVector.y) < 2f ? 

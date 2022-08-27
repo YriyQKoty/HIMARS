@@ -1,9 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
 using Source.Scripts.Commands;
-using Source.Scripts.Interfaces;
 using Source.Scripts.MLRSCore.FireCore;
-using Source.Scripts.MLRSCore.Indicators;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -13,61 +11,38 @@ namespace Source.Scripts.MLRSCore.LauncherCore
     {
         public struct RotationData
         {
-            public Vector3 HorizontalAngles;
-            public Vector3 VerticalAngles;
+            public Vector3 Angles;
 
-            public RotationData(Vector3 horizontalAngles, Vector3 verticalAngles)
+            public RotationData(Vector3 angles)
             {
-                HorizontalAngles = horizontalAngles;
-                VerticalAngles = verticalAngles;
+                Angles = angles;
             }
 
             public RotationData(float horizontalAngle, float verticalAngle)
             {
-                HorizontalAngles = new Vector3(0, horizontalAngle, 0);
-                VerticalAngles = new Vector3(verticalAngle, 0, 0);
+               Angles = new Vector3(verticalAngle, horizontalAngle, 0);
             }
         }
+        
+     
+   
 
-        private ICommand _rotateCommand;
-        private ICommand _rotateToDefaultCommand;
-        private ICommand _cancelRotationCommand;
-        private ICommand _fireCommand;
+        private LauncherRotateCommand _rotateCommand;
+        private LauncherRotateCommand _rotateToDefaultCommand;
+        private LauncherCancelRotateCommand _cancelRotationCommand;
+        private FireCommand _fireCommand;
         
         [Header("Rotation Components")] [Space]
-        [SerializeField] private LauncherHorizontalRotator _horizontalRotator;
-        [SerializeField] private LauncherVertRotator _vertRotator;
+
+        [SerializeField] private LauncherRotator _launcherRotator;
         
         [Header("Fire Components")] [Space]
         [SerializeField] private FireController _fireController;
-
-        [Header("Indicator Components")] [Space] 
-        [SerializeField] private IndicatorsController _indicatorsController;
-
+        
         [Header("Trajectory & Angles")] [Space]
         [SerializeField] private AnglesDeterminator _anglesDeterminator;
-        [SerializeField] private bool _shallowTrajectory = true;
-
-
-        public LauncherHorizontalRotator HorizontalRotator => _horizontalRotator;
-        public LauncherVertRotator VertRotator => _vertRotator;
         public FireController FireController => _fireController;
-        public IndicatorsController IndicatorsController => _indicatorsController;
-        public AnglesDeterminator AnglesDeterminator => _anglesDeterminator;
 
-
-        public bool InDeadZone => _horizontalRotator.InDeadZone && _vertRotator.InDeadZone;
-
-        public bool RotationInAction => _horizontalRotator.RotationInAction || _vertRotator.RotationInAction;
-
-        public bool ShallowTrajectory => _shallowTrajectory;
-        
-        
-        private void Awake()
-        {
-            if (_horizontalRotator == null) _horizontalRotator = GetComponentInChildren<LauncherHorizontalRotator>();
-            if (_vertRotator == null) _vertRotator = GetComponentInChildren<LauncherVertRotator>();
-        }
 
         private void Start()
         {
@@ -76,19 +51,19 @@ namespace Source.Scripts.MLRSCore.LauncherCore
 
         private void InitCommands()
         {
-             _rotateCommand = new LauncherRotateCommand(this, new RotationData(0,0));
-             _rotateToDefaultCommand = new LauncherRotateCommand(this, new RotationData(0,0));
-             _cancelRotationCommand = new LauncherStopRotateCommand(this);
+             _rotateCommand = new LauncherRotateCommand(_launcherRotator, new RotationData(0,0));
+             _rotateToDefaultCommand = new LauncherRotateCommand(_launcherRotator, new RotationData(0,0));
+             _cancelRotationCommand = new LauncherCancelRotateCommand(_launcherRotator);
 
-             _fireCommand = new FireCommand(this, _anglesDeterminator,
-                 new FireData(_anglesDeterminator.PointOfAiming.position, _vertRotator.transform, 0));
+             _fireCommand = new FireCommand(_launcherRotator, _fireController, _anglesDeterminator,
+                 new FireData(_anglesDeterminator.PointOfAiming.position, _launcherRotator.VerticalRotTransform, 0));
         }
 
         public void Rotate(RotationData rotationData)
         {
             if (_rotateCommand.CanExecute())
             {
-                ((LauncherRotateCommand)_rotateCommand).Data = rotationData;
+                _rotateCommand.Data = rotationData;
                 _rotateCommand.Execute();
             };
         }
@@ -101,10 +76,15 @@ namespace Source.Scripts.MLRSCore.LauncherCore
             }
         }
 
+        public void RotateToTarget()
+        {
+           Rotate(new RotationData(_anglesDeterminator.DetermineAngles()));
+        }
+
         public void RandomRotate()
         {
-            Rotate(new RotationData(Random.Range(_horizontalRotator.YAngleRange.x, _horizontalRotator.YAngleRange.y), 
-               Random.Range(_vertRotator.XAngleRange.x, _vertRotator.XAngleRange.y)));
+            Rotate(new RotationData(Random.Range(_launcherRotator.YAngleRange.x, _launcherRotator.YAngleRange.y), 
+               Random.Range(_launcherRotator.XAngleRange.x, _launcherRotator.XAngleRange.y)));
         }
 
         public void CancelRotation()
@@ -115,17 +95,12 @@ namespace Source.Scripts.MLRSCore.LauncherCore
             }
         }
 
-        public void ToggleTrajectory()
-        {
-            _shallowTrajectory = !_shallowTrajectory;
-        }
-
         public void Fire([CanBeNull] Action callback = null)
         {
             if (!_fireCommand.CanExecute()) return;
 
-            ((FireCommand)_fireCommand).Data.Target = _anglesDeterminator.PointOfAiming.position;
-            ((FireCommand)_fireCommand).Data.Angle = _vertRotator.transform.localEulerAngles.x;
+            _fireCommand.Data.Target = _anglesDeterminator.PointOfAiming.position;
+            _fireCommand.Data.Angle = _launcherRotator.CurrentXAngle;
             
             _fireCommand.Execute();
 

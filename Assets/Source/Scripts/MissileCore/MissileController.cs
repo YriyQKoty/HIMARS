@@ -18,14 +18,13 @@ namespace Source.Scripts.MissileCore
 
         [Header("Missile data")] [SerializeField]
         private Missile _missile;
-
-
+        
         [Header("Effects")] [SerializeField] private ParticleSystem _particle;
 
         private bool _launched = false;
         private Vector3 _target;
         private float _angle;
-        private Transform _spawnTransform;
+      
         private Collider[] _colliders = new Collider[10];
 
         public Missile Missile => _missile;
@@ -39,16 +38,17 @@ namespace Source.Scripts.MissileCore
         {
             _target = data.Target;
             _angle = data.Angle;
-            _spawnTransform = data.SpawnTransform;
             
             _mesh.transform.localScale = Vector3.zero;
             _mesh.SetActive(true);
 
-            _mesh.transform.DOScale(Vector3.one, 0.1f);
+            _mesh.transform.DOScale(Vector3.one, 0.1f).OnComplete(() =>
+            {
+                _collider.enabled = true;
+            });
             gameObject.transform.SetParent(null);
 
             _rigidbody.isKinematic = false;
-            _collider.enabled = true;
             _launched = true;
 
             _particle.Play();
@@ -74,7 +74,7 @@ namespace Source.Scripts.MissileCore
 
             var v = Mathf.Sqrt(Mathf.Abs(v2));
             
-            _rigidbody.AddForce(-_spawnTransform.forward * v, ForceMode.Impulse);
+            _rigidbody.AddForce(transform.forward * v, ForceMode.Impulse);
           
         }
         

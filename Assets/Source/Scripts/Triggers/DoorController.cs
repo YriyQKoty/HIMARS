@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Source.Scripts.Triggers
 {
-    public class DoorController : ExitablePartController
+    public class DoorController : SeatController
     {
         [SerializeField] private Animator _animator;
 

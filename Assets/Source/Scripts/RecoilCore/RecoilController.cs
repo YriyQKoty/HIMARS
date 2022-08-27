@@ -1,3 +1,4 @@
+using Source.Scripts.MLRSCore.FireCore;
 using Source.Scripts.MLRSCore.LauncherCore;
 using UnityEngine;
 
@@ -6,8 +7,9 @@ namespace Source.Scripts.RecoilCore
     public class RecoilController : MonoBehaviour
     {
         [SerializeField] private Animator _recoilAnimator;
-
-        [SerializeField] private LauncherController _launcherController;
+        
+        [SerializeField] private FireController _fireController;
+        [SerializeField] private LauncherRotator _launcherRotator;
 
         private readonly string XParameter = "X";
         private readonly string YParameter = "Y";
@@ -15,7 +17,7 @@ namespace Source.Scripts.RecoilCore
 
         private void Update()
         {
-            var yAngle = _launcherController.HorizontalRotator.transform.localRotation.eulerAngles.y;
+            var yAngle = _launcherRotator.CurrentYAngle;
 
             yAngle = yAngle > 180 ? yAngle - 360 : yAngle;
             
@@ -25,14 +27,14 @@ namespace Source.Scripts.RecoilCore
 
         private void OnEnable()
         {
-            _launcherController.FireController.OnFireStart += StartRecoil;
-            _launcherController.FireController.OnFireEnd += EndRecoil;
+            _fireController.OnFireStart += StartRecoil;
+            _fireController.OnFireEnd += EndRecoil;
         }
 
         private void OnDisable()
         {
-            _launcherController.FireController.OnFireStart -= StartRecoil;
-            _launcherController.FireController.OnFireEnd -= EndRecoil;
+            _fireController.OnFireStart -= StartRecoil;
+            _fireController.OnFireEnd -= EndRecoil;
         }
 
         private void StartRecoil()

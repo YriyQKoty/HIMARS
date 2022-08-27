@@ -11,10 +11,6 @@ namespace Source.Scripts.MLRSCore.FireCore
     {
         [Header("Launcher")][Space]
         [SerializeField] private LauncherController _launcherController;
-
-        [Header("Indicators")] [Space] 
-        
-        [SerializeField] private IndicatorsController _indicatorsController;
         
         [Header("Animations")][Space]
         [SerializeField] private Animator _animator;
@@ -24,27 +20,16 @@ namespace Source.Scripts.MLRSCore.FireCore
         
         public void Fire()
         {
-            _launcherController.Fire(() =>
-            {
-                _animator.SetBool(AnimationStateNames.FirePressed, true);
-                _indicatorsController.NotReady();
-                
-                DOVirtual.DelayedCall(_launcherController.FireController.Delay, () =>
-                {
-                    _animator.SetBool(AnimationStateNames.FirePressed, false);
+            _launcherController.Fire(Callback);
+        }
 
-                    if (!_launcherController.FireController.IsEmpty)
-                    {
-                        if (!_launcherController.RotationInAction)
-                        {
-                            _indicatorsController.Ready();
-                        }
-                    }
-                    else
-                    {
-                        _indicatorsController.Empty();
-                    }
-                }, false);
+        private void Callback()
+        {
+            _animator.SetBool(AnimationStateNames.FirePressed, true);
+
+            DOVirtual.DelayedCall(_launcherController.FireController.Delay, () =>
+            {
+                _animator.SetBool(AnimationStateNames.FirePressed, false);
             });
         }
     }

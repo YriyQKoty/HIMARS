@@ -6,7 +6,7 @@ namespace Source.Scripts.Commands
 {
     public class OpenDoorCommand : ICommand
     {
-        private Animator _animator;
+        private readonly Animator _animator;
         
         public OpenDoorCommand(Animator animator)
         {

@@ -36,8 +36,6 @@ namespace Source.Scripts.Camera
 
         private OutlineCamera _current;
 
-        public OutlineCamera Current => _current;
-
         public enum CameraType
         {
             Default = 0,
@@ -70,7 +68,7 @@ namespace Source.Scripts.Camera
 
         public void ChangeCamera(CameraType type)
         {
-            OutlineCamera cam = null;
+            OutlineCamera cam;
             switch (type)
             {
                 case CameraType.Driver: cam = _driverCamera;
