@@ -1,4 +1,7 @@
-﻿namespace Source.Scripts.Interfaces
+﻿using System;
+using JetBrains.Annotations;
+
+namespace Source.Scripts.Interfaces
 {
     public interface ICommand
     {

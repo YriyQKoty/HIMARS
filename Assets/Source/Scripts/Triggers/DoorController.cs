@@ -1,5 +1,6 @@
 using Source.Scripts.Camera;
 using Source.Scripts.Commands;
+using Source.Scripts.Commands.OtherCommands;
 using Source.Scripts.Interfaces;
 using UnityEngine;
 

@@ -1713,7 +1713,7 @@ MonoBehaviour:
   _driverCamera: {fileID: 0}
   _observerCamera: {fileID: 0}
   _operatorCamera: {fileID: 0}
-  _camerasHolder: {fileID: 733775576374001557}
+  _camerasHolder: {fileID: 8977871587689669392}
 --- !u!4 &1718730914
 Transform:
   m_ObjectHideFlags: 0
@@ -2308,18 +2308,7 @@ Terrain:
   m_GroupingID: 0
   m_RenderingLayerMask: 1
   m_AllowAutoConnect: 1
---- !u!114 &733775576374001557 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6611055575540852468, guid: 9e94d75e392d64740857b0250a71f48b, type: 3}
-  m_PrefabInstance: {fileID: 2821785131930011108}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9aadd0d227e4e848b356a18fa63051d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1001 &2821785131930011108
+--- !u!1001 &8324902371958446120
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -2380,3 +2369,14 @@ PrefabInstance:
       objectReference: {fileID: 128019414}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e94d75e392d64740857b0250a71f48b, type: 3}
+--- !u!114 &8977871587689669392 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6611055575540852468, guid: 9e94d75e392d64740857b0250a71f48b, type: 3}
+  m_PrefabInstance: {fileID: 8324902371958446120}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9aadd0d227e4e848b356a18fa63051d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

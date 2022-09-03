@@ -26,8 +26,12 @@ namespace Source.Scripts.MovementCore
         private void FixedUpdate()
         {
             if (!IsMoving) return;
-            
-            if (_driverPart == null) return;
+
+            if (_driverPart == null)
+            {
+                Debug.LogWarning("Driver seat was not set!");
+                return;
+            }
             
             if (!_driverPart.Entered) return;
          

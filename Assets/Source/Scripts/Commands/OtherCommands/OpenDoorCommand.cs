@@ -2,7 +2,7 @@
 using Source.Scripts.Interfaces;
 using UnityEngine;
 
-namespace Source.Scripts.Commands
+namespace Source.Scripts.Commands.OtherCommands
 {
     public class OpenDoorCommand : ICommand
     {
