@@ -58,6 +58,12 @@ namespace Source.Scripts.Commands.FireCommands
                 return false;
             }
             
+            if (_commandParams.IsReloading) 
+            {
+                Debug.LogWarning("Reloading still in Action! Wait for finishing!");
+                return false;
+            }
+            
             return true;
         }
     }

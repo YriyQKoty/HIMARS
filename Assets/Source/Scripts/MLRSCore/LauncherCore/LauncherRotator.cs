@@ -26,6 +26,8 @@ namespace Source.Scripts.MLRSCore.LauncherCore
 
         [Space] [SerializeField] private float rotTime;
 
+        public float RotTime => rotTime;
+
         [Header("Audio")] [Space] [SerializeField]
         private AudioSource _source;
 

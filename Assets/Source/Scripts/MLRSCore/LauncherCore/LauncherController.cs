@@ -1,111 +1,78 @@
 ﻿using System;
 using JetBrains.Annotations;
-using Source.Scripts.Commands;
 using Source.Scripts.Commands.FireCommands;
 using Source.Scripts.Commands.LauncherCommands;
+using Source.Scripts.Commands.ReloadCommands;
+using Source.Scripts.Interfaces;
 using Source.Scripts.MLRSCore.FireCore;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Source.Scripts.MLRSCore.LauncherCore
 {
-    public struct RotationData
-    {
-        public Vector3 Angles;
-
-        public RotationData(Vector3 angles)
-        {
-            Angles = angles;
-        }
-
-        public RotationData(float horizontalAngle, float verticalAngle)
-        {
-            Angles = new Vector3(verticalAngle, horizontalAngle, 0);
-        }
-    }
-
     public class LauncherController : MonoBehaviour
     {
-        private LauncherRotateCommand _rotateCommand;
-        private LauncherRotateCommand _rotateToDefaultCommand;
-        private LauncherCancelRotateCommand _cancelRotationCommand;
-        private FireCommand _fireCommand;
-        
-        [Header("Rotation Components")] [Space]
+        [Header("Rotation Components")] [Space] [SerializeField]
+        private LauncherRotator _launcherRotator;
 
-        [SerializeField] private LauncherRotator _launcherRotator;
-        
-        [Header("Fire Components")] [Space]
-        [SerializeField] private FireController _fireController;
-        
-        [Header("Trajectory & Angles")] [Space]
-        [SerializeField] private AnglesDeterminator _anglesDeterminator;
+        [Header("Fire Components")] [Space] [SerializeField]
+        private FireController _fireController;
+
+        [SerializeField] private AmmoReloader _ammoReloader;
+
+        [Header("Trajectory & Angles")] [Space] [SerializeField]
+        private AnglesDeterminator _anglesDeterminator;
+
         public FireController FireController => _fireController;
 
+        private ICommandsInvoker _launcherRotationCommandsInvoker;
+        private ICommandsInvoker _fireCommandsInvoker;
+        private ICommandsInvoker _reloadCommandsInvoker;
 
         private void Start()
         {
-            InitCommands();
+            InitCommandInvokers();
         }
 
-        private void InitCommands()
+        private void InitCommandInvokers()
         {
-             _rotateCommand = new LauncherRotateCommand(new LauncherRotateCommandParams(_launcherRotator));
-             _rotateToDefaultCommand = new LauncherRotateCommand(new LauncherRotateCommandParams(_launcherRotator));
-             _cancelRotationCommand = new LauncherCancelRotateCommand(new LauncherRotateCommandParams(_launcherRotator));
-            
-             _fireCommand = new FireCommand( new FireCommandParams(_fireController, _launcherRotator, _anglesDeterminator));
-        }
+            _launcherRotationCommandsInvoker =
+                new LauncherRotationCommandsInvoker(new LauncherRotateCommandParams(_launcherRotator,_ammoReloader,_anglesDeterminator));
+            _fireCommandsInvoker =
+                new FireCommandsInvoker(new FireCommandParams(_fireController,_launcherRotator,_anglesDeterminator,_ammoReloader));
 
-        public void Rotate(RotationData rotationData)
-        {
-            if (_rotateCommand.CanExecute())
-            {
-                _rotateCommand.Data = rotationData;
-                _rotateCommand.Execute();
-            };
+            _reloadCommandsInvoker = new ReloadCommandsInvoker(new ReloadCommandParams(_ammoReloader,_launcherRotator,_fireController));
         }
 
         public void RotateToDefault()
         {
-            if (_rotateToDefaultCommand.CanExecute())
-            {
-                _rotateToDefaultCommand.Execute();
-            }
+            _launcherRotationCommandsInvoker.InvokeCommand(CommandType.RotateLauncherToDefault);
         }
 
         public void RotateToTarget()
         {
-           Rotate(new RotationData(_anglesDeterminator.DetermineAngles()));
-        }
-
-        public void RotateToReload()
-        {
-            Rotate(new RotationData(180,0));
+            _launcherRotationCommandsInvoker.InvokeCommand(CommandType.RotateLauncherToTarget);
         }
 
         public void RandomRotate()
         {
-            Rotate(new RotationData(Random.Range(_launcherRotator.YAngleRange.x, _launcherRotator.YAngleRange.y), 
-               Random.Range(_launcherRotator.XAngleRange.x, _launcherRotator.XAngleRange.y)));
+            _launcherRotationCommandsInvoker.InvokeCommand(CommandType.RotateLauncherRandom);
         }
 
         public void CancelRotation()
         {
-            if (_cancelRotationCommand.CanExecute())
-            {
-                _cancelRotationCommand.Execute();
-            }
+            _launcherRotationCommandsInvoker.InvokeCommand(CommandType.CancelLauncherRotation);
+        }
+
+        public void Reload()
+        {
+            _reloadCommandsInvoker.InvokeCommand(CommandType.Reload);
         }
 
         public void Fire([CanBeNull] Action callback = null)
         {
-            if (!_fireCommand.CanExecute()) return;
-            
-            _fireCommand.Execute();
+            _fireCommandsInvoker.InvokeCommand(CommandType.FireOne);
 
             callback?.Invoke();
         }
-
     }
 }

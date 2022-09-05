@@ -48,11 +48,11 @@ namespace Source.Scripts.MovementCore
 
             if (Input.GetKeyDown(KeyCode.R))
             {
-                _launcherController.RotateToTarget();
+                _launcherController.Reload();
             }
             if (Input.GetKeyDown(KeyCode.T))
             {
-                _launcherController.RotateToDefault();
+                _launcherController.RotateToTarget();
             }
             if (Input.GetKeyDown(KeyCode.G))
             {

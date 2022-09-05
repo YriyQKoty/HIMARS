@@ -5,5 +5,7 @@
         public static readonly string OpenDoor = "OpenDoor";
 
         public static readonly string FirePressed = "FirePressed";
+
+        public static readonly string OnReloadTrigger = "OnReload";
     }
 }

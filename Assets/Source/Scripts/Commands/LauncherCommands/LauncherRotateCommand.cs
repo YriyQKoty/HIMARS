@@ -21,10 +21,19 @@ namespace Source.Scripts.Commands.LauncherCommands
 
         public bool CanExecute()
         {
-            if (!_commandParams.LauncherRotator.RotationInAction) return true;
+            if (_commandParams.LauncherRotator.RotationInAction)
+            {
+                Debug.LogWarning("Rotation still in Action! Wait for finishing!");
+                return false;
+            }
             
-            Debug.LogWarning("Rotation still in Action! Wait for finishing!");
-            return false;
+            if (_commandParams.IsReloading) 
+            {
+                Debug.LogWarning("Reloading still in Action! Wait for finishing!");
+                return false;
+            }
+            
+            return true;
         }
     }
 }

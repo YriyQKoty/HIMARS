@@ -1,4 +1,5 @@
 ﻿using Source.Scripts.Interfaces;
+using UnityEngine;
 
 namespace Source.Scripts.Commands.LauncherCommands
 {
@@ -17,6 +18,12 @@ namespace Source.Scripts.Commands.LauncherCommands
 
         public bool CanExecute()
         {
+            if (_commandParams.IsReloading) 
+            {
+                Debug.LogWarning("Reloading still in Action! Wait for finishing!");
+                return false;
+            }
+            
             return true;
         }
     }

@@ -9,13 +9,17 @@ namespace Source.Scripts.Commands.FireCommands
     /// </summary>
     public interface IFireCommandParams
     {
+        //Receiver
         FireController FireController { get; }
+        
+        //Params for CanExecute checking
         float DistanceToTarget { get; }
         bool RotationInAction { get; }
         bool InDeadZone { get; }
         
         Vector3 PointOfAimingPosition { get; }
         float CurrentXAngle { get; }
+        bool IsReloading { get; }
         
         Transform VerticalRotTransform { get; }
     };
@@ -30,18 +34,22 @@ namespace Source.Scripts.Commands.FireCommands
         private readonly FireController _fireController;
         private readonly LauncherRotator _launcherRotator;
         private readonly AnglesDeterminator _anglesDeterminator;
+        private readonly AmmoReloader _ammoReloader;
         
         public FireCommandParams(FireController fireController,
             LauncherRotator launcherRotator,
-            AnglesDeterminator anglesDeterminator)
+            AnglesDeterminator anglesDeterminator,
+            AmmoReloader ammoReloader)
         {
             _fireController = fireController;
             _launcherRotator = launcherRotator;
             _anglesDeterminator = anglesDeterminator;
-
+            _ammoReloader = ammoReloader;
         }
         
         public FireController FireController => _fireController;
+
+        public bool IsReloading => _ammoReloader.IsReloading;
 
         public float DistanceToTarget => _anglesDeterminator.DistanceToTarget;
 
