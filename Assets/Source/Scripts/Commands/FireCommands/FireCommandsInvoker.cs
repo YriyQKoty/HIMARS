@@ -1,5 +1,6 @@
 using System;
 using Source.Scripts.Interfaces;
+using Zenject;
 
 namespace Source.Scripts.Commands.FireCommands
 {
@@ -7,6 +8,7 @@ namespace Source.Scripts.Commands.FireCommands
     {
         private readonly FireCommand _fireCommand;
 
+        [Inject]
         public FireCommandsInvoker(IFireCommandParams commandParams)
         {
             _fireCommand = new FireCommand(commandParams);

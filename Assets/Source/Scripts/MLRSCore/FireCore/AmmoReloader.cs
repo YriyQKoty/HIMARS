@@ -1,6 +1,8 @@
+using System.Runtime.InteropServices;
 using DG.Tweening;
 using Source.Scripts.Helpers;
 using UnityEngine;
+using Zenject;
 
 namespace Source.Scripts.MLRSCore.FireCore
 {
@@ -9,7 +11,7 @@ namespace Source.Scripts.MLRSCore.FireCore
         [SerializeField] private Animator _animator;
 
         [Header("Lifting stuff")] [Space]
-        [SerializeField] private TubesContainer _tubesContainer;
+        private TubesContainer _tubesContainer;
         [SerializeField] private Transform _containerParent;
         
         [SerializeField] private Transform _startLiftPoint;
@@ -19,6 +21,12 @@ namespace Source.Scripts.MLRSCore.FireCore
         public bool IsReloading { get; private set; }
 
         public void StartReloading() => IsReloading = true;
+
+        [Inject]
+        public void Construct(TubesContainer tubesContainer)
+        {
+            _tubesContainer = tubesContainer;
+        }
 
         public void Reload()
         {

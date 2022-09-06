@@ -1,6 +1,7 @@
 using Source.Scripts.MLRSCore.FireCore;
 using Source.Scripts.MLRSCore.LauncherCore;
 using UnityEngine;
+using Zenject;
 
 namespace Source.Scripts.Commands.FireCommands
 {
@@ -20,8 +21,7 @@ namespace Source.Scripts.Commands.FireCommands
         Vector3 PointOfAimingPosition { get; }
         float CurrentXAngle { get; }
         bool IsReloading { get; }
-        
-        Transform VerticalRotTransform { get; }
+
     };
         
 
@@ -36,6 +36,7 @@ namespace Source.Scripts.Commands.FireCommands
         private readonly AnglesDeterminator _anglesDeterminator;
         private readonly AmmoReloader _ammoReloader;
         
+        [Inject(Id = nameof(FireCommandParams))]
         public FireCommandParams(FireController fireController,
             LauncherRotator launcherRotator,
             AnglesDeterminator anglesDeterminator,
@@ -56,8 +57,6 @@ namespace Source.Scripts.Commands.FireCommands
         public Vector3 PointOfAimingPosition => _anglesDeterminator.PointOfAiming.position;
 
         public float CurrentXAngle => _launcherRotator.CurrentXAngle;
-
-        public Transform VerticalRotTransform => _launcherRotator.VerticalRotTransform;
 
         public bool RotationInAction => _launcherRotator.RotationInAction;
         public bool InDeadZone => _launcherRotator.InDeadZone;

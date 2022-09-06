@@ -1,6 +1,6 @@
 ﻿using Source.Scripts.Interfaces;
-using Source.Scripts.MLRSCore.LauncherCore;
 using UnityEngine;
+using Zenject;
 
 namespace Source.Scripts.Commands.LauncherCommands
 {
@@ -9,6 +9,7 @@ namespace Source.Scripts.Commands.LauncherCommands
         private readonly ILauncherRotateCommandParams _commandParams;
         public RotationData Data { get; set; }
 
+        [Inject]
         public LauncherRotateCommand(ILauncherRotateCommandParams commandParams)
         {
             _commandParams = commandParams;

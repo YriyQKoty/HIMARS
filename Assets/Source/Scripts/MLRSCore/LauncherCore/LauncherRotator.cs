@@ -8,8 +8,8 @@ namespace Source.Scripts.MLRSCore.LauncherCore
 {
     public class LauncherRotator : MonoBehaviour
     {
-        [Header("Rotator transforms")] [Space] [SerializeField]
-        private Transform _horTransform;
+        [Header("Rotator transforms")] [Space] 
+        [SerializeField] private Transform _horTransform;
 
         [SerializeField] private Transform _vertTransform;
 
@@ -28,8 +28,8 @@ namespace Source.Scripts.MLRSCore.LauncherCore
 
         public float RotTime => rotTime;
 
-        [Header("Audio")] [Space] [SerializeField]
-        private AudioSource _source;
+        [Header("Audio")] [Space] 
+        [SerializeField] private AudioSource _source;
 
         public AudioSource Source => _source;
 

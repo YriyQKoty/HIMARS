@@ -1,6 +1,7 @@
 using Source.Scripts.MLRSCore.FireCore;
 using Source.Scripts.MLRSCore.LauncherCore;
 using UnityEngine;
+using Zenject;
 
 namespace Source.Scripts.Commands.LauncherCommands
 {
@@ -21,6 +22,7 @@ namespace Source.Scripts.Commands.LauncherCommands
         private readonly AmmoReloader _ammoReloader;
         private readonly AnglesDeterminator _anglesDeterminator;
 
+        [Inject(Id = nameof(LauncherRotateCommandParams))]
         public LauncherRotateCommandParams(LauncherRotator launcherRotator, AmmoReloader ammoReloader, AnglesDeterminator anglesDeterminator)
         {
             _launcherRotator = launcherRotator;

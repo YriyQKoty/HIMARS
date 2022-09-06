@@ -1,6 +1,7 @@
 using Source.Scripts.Interfaces;
 using Source.Scripts.MLRSCore.FireCore;
 using UnityEngine;
+using Zenject;
 
 namespace Source.Scripts.Commands.FireCommands
 {
@@ -9,11 +10,12 @@ namespace Source.Scripts.Commands.FireCommands
         private readonly IFireCommandParams _commandParams;
 
         private FireData _fireData;
-
+        
+        [Inject]
         public FireCommand(IFireCommandParams commandParams)
         {
             _commandParams = commandParams;
-            _fireData = new FireData(_commandParams.PointOfAimingPosition, _commandParams.VerticalRotTransform, 0);
+            _fireData = new FireData(_commandParams.PointOfAimingPosition, 0);
         }
         
         public void Execute()

@@ -4,6 +4,7 @@ using System.Linq;
 using DG.Tweening;
 using Source.Scripts.Scriptables.Missiles;
 using UnityEngine;
+using Zenject;
 
 namespace Source.Scripts.MLRSCore.FireCore
 {
@@ -11,7 +12,7 @@ namespace Source.Scripts.MLRSCore.FireCore
     {
         public Vector3 Target { get; set; }
         public float Angle { get; set; }
-        public FireData(Vector3 target, Transform spawn, float angle)
+        public FireData(Vector3 target, float angle)
         {
             Target = target;
             Angle = angle;
@@ -19,8 +20,8 @@ namespace Source.Scripts.MLRSCore.FireCore
     }
     public class FireController : MonoBehaviour
     {
-        [Header("Reloadable Tubes Container")]
-        [SerializeField] private TubesContainer _tubesContainer;
+        private TubesContainer _tubesContainer;
+        private FireButton _fireButton;
 
         private List<FireTube> _tubes;
         
@@ -36,8 +37,13 @@ namespace Source.Scripts.MLRSCore.FireCore
 
         public int ReadyTubesCount => _tubes.Where(t => t.IsReady).ToArray().Length;
 
-        private void Start()
+
+        [Inject]
+        public void Construct(TubesContainer tubesContainer, FireButton fireButton)
         {
+            _tubesContainer = tubesContainer;
+            _fireButton = fireButton;
+            
             _tubes = _tubesContainer.FireTubes;
         }
 
@@ -50,6 +56,7 @@ namespace Source.Scripts.MLRSCore.FireCore
                 OnFireStart?.Invoke();
                 
                 IsInDelay = true;
+                _fireButton.Effect(Delay);
 
                 DOVirtual.DelayedCall(tube.Delay * 0.1f, () =>
                 {

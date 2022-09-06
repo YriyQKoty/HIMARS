@@ -1,5 +1,6 @@
 using System;
 using Source.Scripts.Interfaces;
+using Zenject;
 
 namespace Source.Scripts.Commands.ReloadCommands
 {
@@ -8,6 +9,7 @@ namespace Source.Scripts.Commands.ReloadCommands
     {
         private readonly ReloadCommand _reloadCommand;
 
+        [Inject]
         public ReloadCommandsInvoker(IReloadCommandParams commandParams)
         {
             _reloadCommand = new ReloadCommand(commandParams);

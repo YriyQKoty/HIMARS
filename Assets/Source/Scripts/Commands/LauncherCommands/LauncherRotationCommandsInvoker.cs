@@ -1,6 +1,7 @@
 using System;
 using Source.Scripts.Interfaces;
 using UnityEngine;
+using Zenject;
 using Random = UnityEngine.Random;
 
 namespace Source.Scripts.Commands.LauncherCommands
@@ -28,6 +29,7 @@ namespace Source.Scripts.Commands.LauncherCommands
 
         private readonly ILauncherRotateCommandParams _commandParams;
         
+        [Inject]
         public LauncherRotationCommandsInvoker(ILauncherRotateCommandParams commandParams)
         {
             _commandParams = commandParams;

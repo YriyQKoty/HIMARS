@@ -1,5 +1,6 @@
 ﻿using Source.Scripts.Interfaces;
 using UnityEngine;
+using Zenject;
 
 namespace Source.Scripts.Commands.LauncherCommands
 {
@@ -7,6 +8,7 @@ namespace Source.Scripts.Commands.LauncherCommands
     {
         private readonly ILauncherRotateCommandParams _commandParams;
         
+        [Inject]
         public LauncherCancelRotateCommand(ILauncherRotateCommandParams commandParams)
         {
             _commandParams = commandParams;

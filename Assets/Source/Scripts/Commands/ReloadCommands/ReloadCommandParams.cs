@@ -1,5 +1,6 @@
 using Source.Scripts.MLRSCore.FireCore;
 using Source.Scripts.MLRSCore.LauncherCore;
+using Zenject;
 
 namespace Source.Scripts.Commands.ReloadCommands
 {
@@ -21,6 +22,7 @@ namespace Source.Scripts.Commands.ReloadCommands
         private readonly AmmoReloader _ammoReloader;
         private readonly FireController _fireController;
         
+        [Inject(Id = nameof(ReloadCommandParams))]
         public ReloadCommandParams(AmmoReloader ammoReloader, 
             LauncherRotator launcherRotator, 
            FireController fireController)

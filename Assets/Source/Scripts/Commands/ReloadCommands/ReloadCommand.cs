@@ -1,6 +1,7 @@
 using DG.Tweening;
 using Source.Scripts.Interfaces;
 using UnityEngine;
+using Zenject;
 
 namespace Source.Scripts.Commands.ReloadCommands
 {
@@ -8,6 +9,7 @@ namespace Source.Scripts.Commands.ReloadCommands
     {
         private readonly IReloadCommandParams _reloadCommandParams;
 
+        [Inject]
         public ReloadCommand(IReloadCommandParams reloadCommandParams)
         {
             _reloadCommandParams = reloadCommandParams;

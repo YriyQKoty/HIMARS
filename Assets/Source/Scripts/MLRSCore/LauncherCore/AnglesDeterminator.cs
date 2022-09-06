@@ -1,14 +1,15 @@
 using System;
 using Source.Scripts.MLRSCore.FireCore;
 using UnityEngine;
+using Zenject;
 
 namespace Source.Scripts.MLRSCore.LauncherCore
 {
     public class AnglesDeterminator : MonoBehaviour
     {
         public Transform PointOfAiming;
-        [SerializeField] private LauncherRotator _launcherRotator;
-        [SerializeField] private FireController _fireController;
+        private LauncherRotator _launcherRotator;
+        private FireController _fireController;
         
         [Header("Trajectory")] [Space]
         [SerializeField] private bool _shallowTrajectory = true;
@@ -19,6 +20,13 @@ namespace Source.Scripts.MLRSCore.LauncherCore
 
         private float _horAngle;
         private float _vertAngle;
+
+        [Inject]
+        public void Construct(LauncherRotator launcherRotator, FireController fireController)
+        {
+            _launcherRotator = launcherRotator;
+            _fireController = fireController;
+        }
         
 
         public Vector2 DetermineAngles()

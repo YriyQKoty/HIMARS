@@ -1,10 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using Source.Scripts.Commands;
 using Source.Scripts.MLRSCore.FireCore;
-using Source.Scripts.MLRSCore.LauncherCore;
 using Source.Scripts.Triggers;
 using UnityEngine;
+using Zenject;
 
 namespace Source.Scripts.MovementCore
 {
@@ -13,15 +13,21 @@ namespace Source.Scripts.MovementCore
         [SerializeField] private MovementController _movementController;
         
         [Header("Launcher & Firing components")]
-        [SerializeField] private LauncherController _launcherController;
-        [SerializeField] private FireButton _fireButton;
         
         [SerializeField] private List<SeatController> _exitableSeats;
 
         private SeatController _operatorPart;
         private SeatController _driverPart;
 
+        private CommandsController _commandsController;
+        
         private bool IsMoving = false;
+
+        [Inject]
+        public void Construct(CommandsController commandsController)
+        {
+            _commandsController = commandsController;
+        }
 
         private void FixedUpdate()
         {
@@ -37,6 +43,8 @@ namespace Source.Scripts.MovementCore
          
             _movementController.Move();
         }
+        
+        
 
         private void Update()
         {
@@ -48,19 +56,19 @@ namespace Source.Scripts.MovementCore
 
             if (Input.GetKeyDown(KeyCode.R))
             {
-                _launcherController.Reload();
+                _commandsController.Reload();
             }
             if (Input.GetKeyDown(KeyCode.T))
             {
-                _launcherController.RotateToTarget();
+                _commandsController.RotateToTarget();
             }
             if (Input.GetKeyDown(KeyCode.G))
             {
-                _launcherController.CancelRotation();
+                _commandsController.CancelRotation();
             }
             if (Input.GetKeyDown(KeyCode.F))
             {
-                _fireButton.Fire();
+                _commandsController.Fire();
             }
 
         }
